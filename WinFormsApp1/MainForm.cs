@@ -16,5 +16,17 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
+
+        private void CerrarSesión(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Esta seguro que quiere cerrar sesión?", "Confirmanción", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                FormIniciarCesión formIniciarCesión = new FormIniciarCesión();
+                formIniciarCesión.Show();
+                this.Close();
+            }
+        }
     }
 }

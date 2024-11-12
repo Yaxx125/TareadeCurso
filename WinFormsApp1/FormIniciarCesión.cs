@@ -15,6 +15,7 @@ namespace WinFormsApp1
         public FormIniciarCesión()
         {
             InitializeComponent();
+            this.FormClosed += (s, e) => Application.Exit();
         }
 
         private void IniciarCesión(object sender, EventArgs e)
