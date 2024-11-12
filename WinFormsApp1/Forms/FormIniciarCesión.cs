@@ -26,7 +26,10 @@ namespace WinFormsApp1
             string usuarioingresado = txtUsuario.Text;
             string contraseñaingresada = txtContraseña.Text;
 
-            if (username == usuarioingresado && contraseña == contraseñaingresada)
+            if (string.IsNullOrWhiteSpace(usuarioingresado) || string.IsNullOrWhiteSpace(contraseñaingresada))
+            {
+                MessageBox.Show("Campos vacios, por favor ingrese los datos solicitados", "Campos vacios", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else if (username == usuarioingresado && contraseña == contraseñaingresada)
             {
                 var MainForm = new MainForm();
                 MainForm.Show();
