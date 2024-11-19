@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApp1.Clases;
+using WinFormsApp1.Forms;
 
 namespace WinFormsApp1
 {
     public partial class MainForm : Form
     {
+
+        InicializarSaldo? inicializarSaldo;
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +31,28 @@ namespace WinFormsApp1
                 formIniciarCesión.Show();
                 this.Close();
             }
+        }
+
+        private void MostrarFormInicializarSaldoenTabPage(Form formulario, TabPage tabPage)
+        {
+            tabPage.Controls.Clear();
+            formulario.TopLevel = false;
+            formulario.FormBorderStyle = FormBorderStyle.None;
+            formulario.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(formulario);
+            formulario.Show();
+
+            tbcControl.SelectedTab = tabPage;
+        }
+
+        private void Inicializar(object sender, EventArgs e)
+        {
+            if (inicializarSaldo == null)
+            {
+                inicializarSaldo = new InicializarSaldo();
+            }
+
+            MostrarFormInicializarSaldoenTabPage(inicializarSaldo, tabpInicializar);
         }
     }
 }

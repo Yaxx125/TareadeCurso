@@ -35,9 +35,9 @@
             btnCerrarSesión = new Button();
             btnRegistrar = new Button();
             btnInicializar = new Button();
-            tabInicializar = new TabControl();
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
+            tbcControl = new TabControl();
+            tabpInicializar = new TabPage();
+            tabpRegistrar = new TabPage();
             toolStrip1 = new ToolStrip();
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
@@ -45,7 +45,7 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
-            tabInicializar.SuspendLayout();
+            tbcControl.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -112,37 +112,38 @@
             btnInicializar.TabIndex = 0;
             btnInicializar.Text = "Inicializar Saldo";
             btnInicializar.UseVisualStyleBackColor = true;
+            btnInicializar.Click += Inicializar;
             // 
-            // tabInicializar
+            // tbcControl
             // 
-            tabInicializar.Controls.Add(tabPage1);
-            tabInicializar.Controls.Add(tabPage2);
-            tabInicializar.Dock = DockStyle.Fill;
-            tabInicializar.Location = new Point(220, 0);
-            tabInicializar.Name = "tabInicializar";
-            tabInicializar.SelectedIndex = 0;
-            tabInicializar.Size = new Size(450, 468);
-            tabInicializar.TabIndex = 1;
+            tbcControl.Controls.Add(tabpInicializar);
+            tbcControl.Controls.Add(tabpRegistrar);
+            tbcControl.Dock = DockStyle.Fill;
+            tbcControl.Location = new Point(220, 0);
+            tbcControl.Name = "tbcControl";
+            tbcControl.SelectedIndex = 0;
+            tbcControl.Size = new Size(450, 468);
+            tbcControl.TabIndex = 1;
             // 
-            // tabPage1
+            // tabpInicializar
             // 
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(442, 440);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Inicializar Saldo";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabpInicializar.Location = new Point(4, 24);
+            tabpInicializar.Name = "tabpInicializar";
+            tabpInicializar.Padding = new Padding(3);
+            tabpInicializar.Size = new Size(442, 440);
+            tabpInicializar.TabIndex = 0;
+            tabpInicializar.Text = "Inicializar Saldo";
+            tabpInicializar.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabpRegistrar
             // 
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(442, 440);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Registrar Movimientos";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabpRegistrar.Location = new Point(4, 24);
+            tabpRegistrar.Name = "tabpRegistrar";
+            tabpRegistrar.Padding = new Padding(3);
+            tabpRegistrar.Size = new Size(442, 440);
+            tabpRegistrar.TabIndex = 1;
+            tabpRegistrar.Text = "Registrar Movimientos";
+            tabpRegistrar.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
@@ -185,7 +186,7 @@
             BackColor = Color.Gainsboro;
             ClientSize = new Size(670, 468);
             Controls.Add(toolStrip1);
-            Controls.Add(tabInicializar);
+            Controls.Add(tbcControl);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
@@ -194,7 +195,7 @@
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox1.ResumeLayout(false);
-            tabInicializar.ResumeLayout(false);
+            tbcControl.ResumeLayout(false);
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
@@ -204,9 +205,9 @@
         #endregion
 
         private Panel panel1;
-        private TabControl tabInicializar;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
+        private TabControl tbcControl;
+        private TabPage tabpInicializar;
+        private TabPage tabpRegistrar;
         private Button btnCerrarSesión;
         private Button btnRegistrar;
         private Button btnInicializar;
