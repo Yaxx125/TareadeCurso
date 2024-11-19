@@ -16,6 +16,7 @@ namespace WinFormsApp1
     {
 
         InicializarSaldo? inicializarSaldo;
+        RegistroMovimientos? registroMovimientos;
         public MainForm()
         {
             InitializeComponent();
@@ -53,6 +54,15 @@ namespace WinFormsApp1
             }
 
             MostrarFormInicializarSaldoenTabPage(inicializarSaldo, tabpInicializar);
+        }
+
+        private void Registrar(object sender, EventArgs e)
+        {
+            if (registroMovimientos == null)
+            {
+                registroMovimientos = new RegistroMovimientos();
+            }
+            MostrarFormInicializarSaldoenTabPage(registroMovimientos, tabpRegistrar);
         }
     }
 }

@@ -56,7 +56,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(220, 468);
+            panel1.Size = new Size(220, 741);
             panel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -71,21 +71,22 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.None;
             groupBox1.BackColor = Color.Gainsboro;
             groupBox1.Controls.Add(btnCerrarSesión);
             groupBox1.Controls.Add(btnRegistrar);
             groupBox1.Controls.Add(btnInicializar);
-            groupBox1.Location = new Point(0, 182);
+            groupBox1.Location = new Point(3, 190);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(220, 303);
+            groupBox1.Size = new Size(220, 399);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Controles de manejo";
             // 
             // btnCerrarSesión
             // 
-            btnCerrarSesión.Anchor = AnchorStyles.None;
-            btnCerrarSesión.Location = new Point(52, 198);
+            btnCerrarSesión.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCerrarSesión.Location = new Point(52, 227);
             btnCerrarSesión.Name = "btnCerrarSesión";
             btnCerrarSesión.Size = new Size(101, 51);
             btnCerrarSesión.TabIndex = 2;
@@ -95,18 +96,18 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Anchor = AnchorStyles.None;
-            btnRegistrar.Location = new Point(52, 124);
+            btnRegistrar.Anchor = AnchorStyles.Left;
+            btnRegistrar.Location = new Point(52, 142);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(101, 51);
             btnRegistrar.TabIndex = 1;
             btnRegistrar.Text = "Registrar Movimientos";
             btnRegistrar.UseVisualStyleBackColor = true;
+            btnRegistrar.Click += Registrar;
             // 
             // btnInicializar
             // 
-            btnInicializar.Anchor = AnchorStyles.None;
-            btnInicializar.Location = new Point(52, 49);
+            btnInicializar.Location = new Point(52, 53);
             btnInicializar.Name = "btnInicializar";
             btnInicializar.Size = new Size(101, 51);
             btnInicializar.TabIndex = 0;
@@ -122,7 +123,7 @@
             tbcControl.Location = new Point(220, 0);
             tbcControl.Name = "tbcControl";
             tbcControl.SelectedIndex = 0;
-            tbcControl.Size = new Size(450, 468);
+            tbcControl.Size = new Size(1057, 741);
             tbcControl.TabIndex = 1;
             // 
             // tabpInicializar
@@ -130,7 +131,7 @@
             tabpInicializar.Location = new Point(4, 24);
             tabpInicializar.Name = "tabpInicializar";
             tabpInicializar.Padding = new Padding(3);
-            tabpInicializar.Size = new Size(442, 440);
+            tabpInicializar.Size = new Size(1049, 713);
             tabpInicializar.TabIndex = 0;
             tabpInicializar.Text = "Inicializar Saldo";
             tabpInicializar.UseVisualStyleBackColor = true;
@@ -140,7 +141,7 @@
             tabpRegistrar.Location = new Point(4, 24);
             tabpRegistrar.Name = "tabpRegistrar";
             tabpRegistrar.Padding = new Padding(3);
-            tabpRegistrar.Size = new Size(442, 440);
+            tabpRegistrar.Size = new Size(796, 553);
             tabpRegistrar.TabIndex = 1;
             tabpRegistrar.Text = "Registrar Movimientos";
             tabpRegistrar.UseVisualStyleBackColor = true;
@@ -149,9 +150,9 @@
             // 
             toolStrip1.Dock = DockStyle.Bottom;
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
-            toolStrip1.Location = new Point(220, 443);
+            toolStrip1.Location = new Point(220, 716);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(450, 25);
+            toolStrip1.Size = new Size(1057, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -184,11 +185,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(670, 468);
+            ClientSize = new Size(1277, 741);
             Controls.Add(toolStrip1);
             Controls.Add(tbcControl);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Registro de caja";
