@@ -56,7 +56,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(220, 741);
+            panel1.Size = new Size(220, 447);
             panel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -76,9 +76,9 @@
             groupBox1.Controls.Add(btnCerrarSesión);
             groupBox1.Controls.Add(btnRegistrar);
             groupBox1.Controls.Add(btnInicializar);
-            groupBox1.Location = new Point(3, 190);
+            groupBox1.Location = new Point(3, 165);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(220, 399);
+            groupBox1.Size = new Size(220, 277);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Controles de manejo";
@@ -86,7 +86,7 @@
             // btnCerrarSesión
             // 
             btnCerrarSesión.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCerrarSesión.Location = new Point(52, 227);
+            btnCerrarSesión.Location = new Point(52, 207);
             btnCerrarSesión.Name = "btnCerrarSesión";
             btnCerrarSesión.Size = new Size(101, 51);
             btnCerrarSesión.TabIndex = 2;
@@ -97,7 +97,7 @@
             // btnRegistrar
             // 
             btnRegistrar.Anchor = AnchorStyles.Left;
-            btnRegistrar.Location = new Point(52, 142);
+            btnRegistrar.Location = new Point(52, 130);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(101, 51);
             btnRegistrar.TabIndex = 1;
@@ -123,7 +123,7 @@
             tbcControl.Location = new Point(220, 0);
             tbcControl.Name = "tbcControl";
             tbcControl.SelectedIndex = 0;
-            tbcControl.Size = new Size(1057, 741);
+            tbcControl.Size = new Size(569, 447);
             tbcControl.TabIndex = 1;
             // 
             // tabpInicializar
@@ -131,7 +131,7 @@
             tabpInicializar.Location = new Point(4, 24);
             tabpInicializar.Name = "tabpInicializar";
             tabpInicializar.Padding = new Padding(3);
-            tabpInicializar.Size = new Size(1049, 713);
+            tabpInicializar.Size = new Size(561, 419);
             tabpInicializar.TabIndex = 0;
             tabpInicializar.Text = "Inicializar Saldo";
             tabpInicializar.UseVisualStyleBackColor = true;
@@ -141,7 +141,7 @@
             tabpRegistrar.Location = new Point(4, 24);
             tabpRegistrar.Name = "tabpRegistrar";
             tabpRegistrar.Padding = new Padding(3);
-            tabpRegistrar.Size = new Size(796, 553);
+            tabpRegistrar.Size = new Size(1049, 713);
             tabpRegistrar.TabIndex = 1;
             tabpRegistrar.Text = "Registrar Movimientos";
             tabpRegistrar.UseVisualStyleBackColor = true;
@@ -150,9 +150,9 @@
             // 
             toolStrip1.Dock = DockStyle.Bottom;
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
-            toolStrip1.Location = new Point(220, 716);
+            toolStrip1.Location = new Point(220, 422);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1057, 25);
+            toolStrip1.Size = new Size(569, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -185,7 +185,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(1277, 741);
+            ClientSize = new Size(789, 447);
             Controls.Add(toolStrip1);
             Controls.Add(tbcControl);
             Controls.Add(panel1);
