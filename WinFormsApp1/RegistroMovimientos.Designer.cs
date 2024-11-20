@@ -193,7 +193,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(57, 469);
+            label6.Location = new Point(502, 428);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 14;
@@ -201,7 +201,7 @@
             // 
             // txtSaldo
             // 
-            txtSaldo.Location = new Point(131, 461);
+            txtSaldo.Location = new Point(558, 420);
             txtSaldo.Name = "txtSaldo";
             txtSaldo.Size = new Size(100, 23);
             txtSaldo.TabIndex = 15;

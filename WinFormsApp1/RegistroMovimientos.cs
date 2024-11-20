@@ -12,9 +12,18 @@ namespace WinFormsApp1
 {
     public partial class RegistroMovimientos : Form
     {
-        public RegistroMovimientos()
+        private double saldoInicial;
+        public RegistroMovimientos(double saldoInicial)
         {
             InitializeComponent();
+            this.saldoInicial = saldoInicial;
+
+            this.Shown += RegistroMovimientos_Shown;
+        }
+
+        private void RegistroMovimientos_Shown(object sender, EventArgs e)
+        {
+            txtSaldo.Text = saldoInicial.ToString("F2");
         }
 
         private void ReconocimientoDeNumeros(object sender, KeyPressEventArgs e)

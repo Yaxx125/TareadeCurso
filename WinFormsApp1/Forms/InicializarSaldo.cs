@@ -24,9 +24,8 @@ namespace WinFormsApp1.Forms
 
         private void Reconocimientodenumeros(object sender, KeyPressEventArgs e)
         {
-            //permite que unicamente se ingresen numeros,
-            //asi como que no bloquea la tecla  de retroceso para eliminar elementos
-            //ni la tecla . para permitir el ingreso de decimales
+            //permite que unicamente se ingresen numeros
+            //además del ingreso de decimales
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != '.')
             {
                 e.Handled = true; //Bloquea si la tecla no es un numero
@@ -42,8 +41,8 @@ namespace WinFormsApp1.Forms
             Listademovimientos.Add(inicializacióndesaldo);
             //Actualización de saldo en la caja
             caja.RegistrarMovimientos(inicializacióndesaldo);
-            
-
+            // Abrir el segundo formulario y pasar el saldo inicial
+            RegistroMovimientos registroMovimientosForm = new RegistroMovimientos(saldoInicial);
             MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
      }
