@@ -128,6 +128,7 @@
             Name = "FormIniciarCesión";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Iniciar Sesión";
+            Load += FormIniciarCesión_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

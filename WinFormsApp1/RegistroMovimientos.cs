@@ -16,5 +16,13 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
+
+        private void ReconocimientoDeNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != '.')
+            {
+                e.Handled = true; //Bloquea si la tecla no es un numero
+            }
+        }
     }
 }

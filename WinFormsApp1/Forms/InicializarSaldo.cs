@@ -46,5 +46,5 @@ namespace WinFormsApp1.Forms
 
             MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-    }
+     }
 }
