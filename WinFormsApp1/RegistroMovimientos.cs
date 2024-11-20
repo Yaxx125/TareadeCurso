@@ -24,5 +24,13 @@ namespace WinFormsApp1
                 e.Handled = true; //Bloquea si la tecla no es un numero
             }
         }
+
+        private void ReconocimientoDeNumeross(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != '.')
+            {
+                e.Handled = true; //Bloquea si la tecla no es un numero
+            }
+        }
     }
 }

@@ -44,6 +44,8 @@
             txtMonto = new TextBox();
             txtConceptoDeMovimiento = new TextBox();
             dateTimePicker1 = new DateTimePicker();
+            label6 = new Label();
+            txtSaldo = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -168,7 +170,7 @@
             // txtMonto
             // 
             txtMonto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtMonto.Location = new Point(186, 336);
+            txtMonto.Location = new Point(131, 336);
             txtMonto.Name = "txtMonto";
             txtMonto.Size = new Size(121, 23);
             txtMonto.TabIndex = 10;
@@ -188,11 +190,30 @@
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 13;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(57, 469);
+            label6.Name = "label6";
+            label6.Size = new Size(39, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Saldo:";
+            // 
+            // txtSaldo
+            // 
+            txtSaldo.Location = new Point(131, 461);
+            txtSaldo.Name = "txtSaldo";
+            txtSaldo.Size = new Size(100, 23);
+            txtSaldo.TabIndex = 15;
+            txtSaldo.KeyPress += ReconocimientoDeNumeross;
+            // 
             // RegistroMovimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(726, 603);
+            Controls.Add(txtSaldo);
+            Controls.Add(label6);
             Controls.Add(dateTimePicker1);
             Controls.Add(txtConceptoDeMovimiento);
             Controls.Add(txtMonto);
@@ -231,5 +252,7 @@
         private TextBox txtMonto;
         private TextBox txtConceptoDeMovimiento;
         private DateTimePicker dateTimePicker1;
+        private Label label6;
+        private TextBox txtSaldo;
     }
 }
