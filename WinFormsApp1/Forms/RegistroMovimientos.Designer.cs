@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvMovimientos = new DataGridView();
             TipodeMovimiento = new DataGridViewTextBoxColumn();
             Monto = new DataGridViewTextBoxColumn();
             Concepto = new DataGridViewTextBoxColumn();
@@ -46,22 +46,22 @@
             dateTimePicker1 = new DateTimePicker();
             label6 = new Label();
             txtSaldo = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMovimientos).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvMovimientos
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { TipodeMovimiento, Monto, Concepto, Fecha });
-            dataGridView1.Location = new Point(57, 26);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(601, 186);
-            dataGridView1.TabIndex = 0;
+            dgvMovimientos.AllowUserToAddRows = false;
+            dgvMovimientos.AllowUserToDeleteRows = false;
+            dgvMovimientos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvMovimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMovimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMovimientos.Columns.AddRange(new DataGridViewColumn[] { TipodeMovimiento, Monto, Concepto, Fecha });
+            dgvMovimientos.Location = new Point(57, 26);
+            dgvMovimientos.Name = "dgvMovimientos";
+            dgvMovimientos.ReadOnly = true;
+            dgvMovimientos.Size = new Size(601, 186);
+            dgvMovimientos.TabIndex = 0;
             // 
             // TipodeMovimiento
             // 
@@ -206,7 +206,6 @@
             txtSaldo.ReadOnly = true;
             txtSaldo.Size = new Size(100, 23);
             txtSaldo.TabIndex = 15;
-            txtSaldo.KeyPress += ReconocimientoDeNumeross;
             // 
             // RegistroMovimientos
             // 
@@ -226,18 +225,18 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvMovimientos);
             Name = "RegistroMovimientos";
             Padding = new Padding(10);
             Text = "RegistroMovimientos";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMovimientos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvMovimientos;
         private DataGridViewTextBoxColumn TipodeMovimiento;
         private DataGridViewTextBoxColumn Monto;
         private DataGridViewTextBoxColumn Concepto;

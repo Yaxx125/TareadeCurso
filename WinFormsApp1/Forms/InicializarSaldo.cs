@@ -1,20 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsApp1.Clases;
-
-namespace WinFormsApp1.Forms
+﻿namespace WinFormsApp1.Forms
 {
     public partial class InicializarSaldo : Form
     {
-        //lista donde se almacenan los movimientos y que posteriormente se mostraran en el MainForm
-        private List<Movimientos> Listademovimientos = new List<Movimientos>();
         //Caja que será base de ejercicio
         private Caja caja;
         public InicializarSaldo(Caja caja)
@@ -38,11 +25,13 @@ namespace WinFormsApp1.Forms
             double saldoInicial = Convert.ToDouble(txtSaldoInicial.Text);
             DateTime fechadeejercicio = dtpFechadeEjercicio.Value;
 
-            Movimientos inicializacióndesaldo = new Ingreso (saldoInicial, "Inicialización de saldo", fechadeejercicio);  
-            Listademovimientos.Add(inicializacióndesaldo);
-            //Actualización de saldo en la caja
-            caja.RegistrarMovimientos(inicializacióndesaldo);
+            //Registro de la inicialización de la caja
+            Movimientos inicializacióndeSaldo = new Movimientos(TipoMovimiento.Ingreso, saldoInicial, "Inicialización de saldo", fechadeejercicio);
             
+
+            //Registrar el movimiento en la caja (osea, modificar el saldo)
+            caja.RegistrarMovimientos(inicializacióndeSaldo);
+
             MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
      }

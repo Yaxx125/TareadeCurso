@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsApp1.Clases;
-
-namespace WinFormsApp1
+﻿namespace WinFormsApp1
 {
     public partial class RegistroMovimientos : Form
     {
@@ -30,18 +19,22 @@ namespace WinFormsApp1
             }
         }
 
-        private void ReconocimientoDeNumeross(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8 && e.KeyChar != '.')
-            {
-                e.Handled = true; //Bloquea si la tecla no es un numero
-            }
-        }
-
-        //Metodo para mostrar el saldo ingresado
+        //Metodo para mostrar los movimientos y saldo disponible
         private void RegistroMovimientos_Shown(object sender, EventArgs e)
         {
+            //Unicamente 2 decimales en el saldo
             txtSaldo.Text = caja.Saldo.ToString("F2");
+
+            //limpiar las filas del data
+            dgvMovimientos.Rows.Clear();
+
+            //Agregar los movimientos al Data
+
+            foreach (var movimiento in caja.ObtenerMovimientos())
+            {
+                //Crear una fila con los moviminetos
+                dgvMovimientos.Rows.Add(movimiento.Tipo, movimiento.Monto, movimiento.Concepto, movimiento.Fecha);
+            }
         }
     }
 }
