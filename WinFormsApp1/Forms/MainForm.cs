@@ -17,10 +17,12 @@ namespace WinFormsApp1
 
         InicializarSaldo? inicializarSaldo;
         RegistroMovimientos? registroMovimientos;
-        double saldoInicial;
+        //Objeto caja que será compartido entre los forms
+        private Caja caja;
         public MainForm()
         {
             InitializeComponent();
+            caja = new Caja(0);
         }
 
         private void CerrarSesión(object sender, EventArgs e)
@@ -51,7 +53,7 @@ namespace WinFormsApp1
         {
             if (inicializarSaldo == null)
             {
-                inicializarSaldo = new InicializarSaldo();
+                inicializarSaldo = new InicializarSaldo(caja);
             }
 
             MostrarFormInicializarSaldoenTabPage(inicializarSaldo, tabpInicializar);
@@ -61,7 +63,7 @@ namespace WinFormsApp1
         {
             if (registroMovimientos == null)
             {
-                registroMovimientos = new RegistroMovimientos(saldoInicial);
+                registroMovimientos = new RegistroMovimientos(caja);
             }
             MostrarFormInicializarSaldoenTabPage(registroMovimientos, tabpRegistrar);
         }

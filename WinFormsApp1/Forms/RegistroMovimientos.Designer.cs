@@ -101,7 +101,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(57, 299);
             label2.Name = "label2";
-            label2.Size = new Size(118, 15);
+            label2.Size = new Size(117, 15);
             label2.TabIndex = 2;
             label2.Text = "Tipo de movimiento:";
             // 
@@ -193,7 +193,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(502, 428);
+            label6.Location = new Point(484, 428);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 14;
@@ -203,6 +203,7 @@
             // 
             txtSaldo.Location = new Point(558, 420);
             txtSaldo.Name = "txtSaldo";
+            txtSaldo.ReadOnly = true;
             txtSaldo.Size = new Size(100, 23);
             txtSaldo.TabIndex = 15;
             txtSaldo.KeyPress += ReconocimientoDeNumeross;

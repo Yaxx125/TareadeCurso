@@ -7,23 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApp1.Clases;
 
 namespace WinFormsApp1
 {
     public partial class RegistroMovimientos : Form
     {
-        private double saldoInicial;
-        public RegistroMovimientos(double saldoInicial)
+        private Caja caja;
+        public RegistroMovimientos(Caja caja)
         {
             InitializeComponent();
-            this.saldoInicial = saldoInicial;
+            this.caja = caja;
 
             this.Shown += RegistroMovimientos_Shown;
-        }
-
-        private void RegistroMovimientos_Shown(object sender, EventArgs e)
-        {
-            txtSaldo.Text = saldoInicial.ToString("F2");
         }
 
         private void ReconocimientoDeNumeros(object sender, KeyPressEventArgs e)
@@ -40,6 +36,12 @@ namespace WinFormsApp1
             {
                 e.Handled = true; //Bloquea si la tecla no es un numero
             }
+        }
+
+        //Metodo para mostrar el saldo ingresado
+        private void RegistroMovimientos_Shown(object sender, EventArgs e)
+        {
+            txtSaldo.Text = caja.Saldo.ToString("F2");
         }
     }
 }

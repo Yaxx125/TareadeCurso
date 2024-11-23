@@ -15,11 +15,12 @@ namespace WinFormsApp1.Forms
     {
         //lista donde se almacenan los movimientos y que posteriormente se mostraran en el MainForm
         private List<Movimientos> Listademovimientos = new List<Movimientos>();
-        //Caja iniciada con saldo 0
-        private static Caja caja = new Caja(0);
-        public InicializarSaldo()
+        //Caja que será base de ejercicio
+        private Caja caja;
+        public InicializarSaldo(Caja caja)
         {
             InitializeComponent();
+            this.caja = caja;
         }
 
         private void Reconocimientodenumeros(object sender, KeyPressEventArgs e)
@@ -41,8 +42,7 @@ namespace WinFormsApp1.Forms
             Listademovimientos.Add(inicializacióndesaldo);
             //Actualización de saldo en la caja
             caja.RegistrarMovimientos(inicializacióndesaldo);
-            // Abrir el segundo formulario y pasar el saldo inicial
-            RegistroMovimientos registroMovimientosForm = new RegistroMovimientos(saldoInicial);
+            
             MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
      }
