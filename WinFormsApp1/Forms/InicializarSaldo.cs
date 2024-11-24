@@ -22,17 +22,26 @@
 
         private void InicializarCaja(object sender, EventArgs e)
         {
-            double saldoInicial = Convert.ToDouble(txtSaldoInicial.Text);
-            DateTime fechadeejercicio = dtpFechadeEjercicio.Value;
+            //validar que el saldo ingresado sea mayor a 0
+            if (Convert.ToDouble(txtSaldoInicial.Text) > 0)
+            {
+                double saldoInicial = Convert.ToDouble(txtSaldoInicial.Text);
+                DateTime fechadeejercicio = dtpFechadeEjercicio.Value;
 
-            //Registro de la inicialización de la caja
-            Movimientos inicializacióndeSaldo = new Movimientos(TipoMovimiento.Ingreso, saldoInicial, "Inicialización de saldo", fechadeejercicio);
-            
+                //Registro de la inicialización de la caja
+                Movimientos inicializacióndeSaldo = new Movimientos(TipoMovimiento.Ingreso, saldoInicial, "Inicialización de saldo", fechadeejercicio);
 
-            //Registrar el movimiento en la caja (osea, modificar el saldo)
-            caja.RegistrarMovimientos(inicializacióndeSaldo);
 
-            MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //Registrar el movimiento en la caja (osea, modificar el saldo)
+                caja.RegistrarMovimientos(inicializacióndeSaldo);
+
+                MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un valor mayor a 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
      }
 }

@@ -1,4 +1,4 @@
-﻿    public class Caja
+﻿        public class Caja
     {
         public double Saldo { get; set; }
         //Lista donde se regitraran los movimientos

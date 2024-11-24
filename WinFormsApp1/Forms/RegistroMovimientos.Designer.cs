@@ -62,6 +62,7 @@
             dgvMovimientos.ReadOnly = true;
             dgvMovimientos.Size = new Size(601, 186);
             dgvMovimientos.TabIndex = 0;
+            dgvMovimientos.CellClick += SeleccionarMovimiento;
             // 
             // TipodeMovimiento
             // 

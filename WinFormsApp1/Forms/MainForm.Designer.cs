@@ -193,6 +193,7 @@
             tsbEditar.Size = new Size(125, 22);
             tsbEditar.Text = "Editar Movimiento";
             tsbEditar.Visible = false;
+            tsbEditar.Click += EditarMovimiento;
             // 
             // tsbEliminar
             // 

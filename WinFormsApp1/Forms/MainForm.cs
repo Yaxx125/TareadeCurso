@@ -83,5 +83,14 @@ namespace WinFormsApp1
                 registroMovimientos.AgregarMovimiento();
             }
         }
+
+        private void EditarMovimiento(object sender, EventArgs e)
+        {
+            if (registroMovimientos != null && !registroMovimientos.IsDisposed)
+            {
+                //Llama al metodo EditarMovimineto en RegistroMovimientos
+                registroMovimientos.EditarMovimientos();
+            }
+        }
     }
 }
