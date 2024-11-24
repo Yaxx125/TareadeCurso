@@ -39,9 +39,11 @@
             tabpInicializar = new TabPage();
             tabpRegistrar = new TabPage();
             toolStrip1 = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
-            toolStripButton2 = new ToolStripButton();
-            toolStripButton3 = new ToolStripButton();
+            tsbImportar = new ToolStripButton();
+            tsbGuardar = new ToolStripButton();
+            tsbAgregar = new ToolStripButton();
+            tsbEditar = new ToolStripButton();
+            tsbEliminar = new ToolStripButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
@@ -62,7 +64,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(40, 24);
+            pictureBox1.Location = new Point(40, 48);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(134, 135);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -141,7 +143,7 @@
             tabpRegistrar.Location = new Point(4, 24);
             tabpRegistrar.Name = "tabpRegistrar";
             tabpRegistrar.Padding = new Padding(3);
-            tabpRegistrar.Size = new Size(580, 458);
+            tabpRegistrar.Size = new Size(732, 552);
             tabpRegistrar.TabIndex = 1;
             tabpRegistrar.Text = "Registrar Movimientos";
             tabpRegistrar.UseVisualStyleBackColor = true;
@@ -149,36 +151,57 @@
             // toolStrip1
             // 
             toolStrip1.Dock = DockStyle.Bottom;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbImportar, tsbGuardar, tsbAgregar, tsbEditar, tsbEliminar });
             toolStrip1.Location = new Point(220, 555);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(740, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // tsbImportar
             // 
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(137, 22);
-            toolStripButton1.Text = "Agregar Movimiento";
+            tsbImportar.Image = (Image)resources.GetObject("tsbImportar.Image");
+            tsbImportar.ImageTransparentColor = Color.Magenta;
+            tsbImportar.Name = "tsbImportar";
+            tsbImportar.Size = new Size(146, 22);
+            tsbImportar.Text = "Importar Movimientos";
             // 
-            // toolStripButton2
+            // tsbGuardar
             // 
-            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(125, 22);
-            toolStripButton2.Text = "Editar Movimiento";
+            tsbGuardar.Image = (Image)resources.GetObject("tsbGuardar.Image");
+            tsbGuardar.ImageTransparentColor = Color.Magenta;
+            tsbGuardar.Name = "tsbGuardar";
+            tsbGuardar.Size = new Size(142, 22);
+            tsbGuardar.Text = "Guardar Movimientos";
+            tsbGuardar.Visible = false;
             // 
-            // toolStripButton3
+            // tsbAgregar
             // 
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(138, 22);
-            toolStripButton3.Text = "Eliminar Movimiento";
+            tsbAgregar.Image = (Image)resources.GetObject("tsbAgregar.Image");
+            tsbAgregar.ImageTransparentColor = Color.Magenta;
+            tsbAgregar.Name = "tsbAgregar";
+            tsbAgregar.Size = new Size(137, 22);
+            tsbAgregar.Text = "Agregar Movimiento";
+            tsbAgregar.Visible = false;
+            tsbAgregar.Click += AgregarMovimiento;
+            // 
+            // tsbEditar
+            // 
+            tsbEditar.Image = (Image)resources.GetObject("tsbEditar.Image");
+            tsbEditar.ImageTransparentColor = Color.Magenta;
+            tsbEditar.Name = "tsbEditar";
+            tsbEditar.Size = new Size(125, 22);
+            tsbEditar.Text = "Editar Movimiento";
+            tsbEditar.Visible = false;
+            // 
+            // tsbEliminar
+            // 
+            tsbEliminar.Image = (Image)resources.GetObject("tsbEliminar.Image");
+            tsbEliminar.ImageTransparentColor = Color.Magenta;
+            tsbEliminar.Name = "tsbEliminar";
+            tsbEliminar.Size = new Size(138, 22);
+            tsbEliminar.Text = "Eliminar Movimiento";
+            tsbEliminar.Visible = false;
             // 
             // MainForm
             // 
@@ -215,10 +238,12 @@
         private Button btnRegistrar;
         private Button btnInicializar;
         private ToolStrip toolStrip1;
-        private ToolStripButton toolStripButton1;
-        private ToolStripButton toolStripButton2;
-        private ToolStripButton toolStripButton3;
+        private ToolStripButton tsbAgregar;
+        private ToolStripButton tsbEditar;
+        private ToolStripButton tsbEliminar;
         private GroupBox groupBox1;
         private PictureBox pictureBox1;
+        private ToolStripButton tsbGuardar;
+        private ToolStripButton tsbImportar;
     }
 }

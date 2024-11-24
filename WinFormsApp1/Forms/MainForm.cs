@@ -27,7 +27,8 @@ namespace WinFormsApp1
             }
         }
 
-        private void MostrarFormInicializarSaldoenTabPage(Form formulario, TabPage tabPage)
+        //Metodo para mostrar Form en su TabPage correspondientes
+        private void MostrarFormenTabPage(Form formulario, TabPage tabPage)
         {
             tabPage.Controls.Clear();
             formulario.TopLevel = false;
@@ -41,21 +42,46 @@ namespace WinFormsApp1
 
         private void Inicializar(object sender, EventArgs e)
         {
+            //Crea y muestra form con el objeto caja principal
             if (inicializarSaldo == null)
             {
                 inicializarSaldo = new InicializarSaldo(caja);
             }
 
-            MostrarFormInicializarSaldoenTabPage(inicializarSaldo, tabpInicializar);
+            MostrarFormenTabPage(inicializarSaldo, tabpInicializar);
         }
 
         private void Registrar(object sender, EventArgs e)
         {
+            //Crea form y se le establece el saldo anteriormente ingresado
             if (registroMovimientos == null)
             {
                 registroMovimientos = new RegistroMovimientos(caja);
             }
-            MostrarFormInicializarSaldoenTabPage(registroMovimientos, tabpRegistrar);
+
+            //Verifica que se haya iningresado saldo anteriormente, de lo contario no muestra el form
+            if (caja.Saldo != 0)
+            {
+                MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
+                tsbAgregar.Visible = true;
+                tsbEditar.Visible = true;
+                tsbEliminar.Visible = true;
+                tsbGuardar.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Necesita inicializar saldo de caja para acceder", "Inicialice Saldo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
+
+        private void AgregarMovimiento(object sender, EventArgs e)
+        {
+            if (registroMovimientos != null && !registroMovimientos.IsDisposed)
+            {
+                // Llama al método AgregarMovimiento en RegistroMovimientos
+                registroMovimientos.AgregarMovimiento();
+            }
         }
     }
 }

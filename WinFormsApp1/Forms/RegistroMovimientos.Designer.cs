@@ -161,7 +161,6 @@
             cboMovimientos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboMovimientos.DropDownStyle = ComboBoxStyle.DropDownList;
             cboMovimientos.FormattingEnabled = true;
-            cboMovimientos.Items.AddRange(new object[] { "Ingreso", "Egreso" });
             cboMovimientos.Location = new Point(186, 299);
             cboMovimientos.Name = "cboMovimientos";
             cboMovimientos.Size = new Size(121, 23);
