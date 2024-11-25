@@ -229,6 +229,7 @@
             Name = "RegistroMovimientos";
             Padding = new Padding(10);
             Text = "RegistroMovimientos";
+            Click += DeseleccionarDatayLimpiarCampos;
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).EndInit();
             ResumeLayout(false);
             PerformLayout();

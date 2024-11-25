@@ -79,7 +79,7 @@
         }
 
         //Metodo para registrar ´modificación de movimiento (será mandado a llamar en el mainform)
-        public void EditarMovimientos ()
+        public void EditarMovimientos()
         {
             if (dgvMovimientos.CurrentRow == null || dgvMovimientos.CurrentRow.Index < 0)
             {
@@ -92,9 +92,23 @@
             if (!ValidarCampos()) return;
 
             //Creación de nuevo movimiento por modificación
-            TipoMovimiento nuevoTipo = (TipoMovimiento)cboMovimientos.SelectedItem;
             var movimientoActual = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
 
+            //Revierte el efecto del movimiento original en caso de modificación
+            if (movimientoActual.Tipo == TipoMovimiento.Ingreso)
+            {
+                caja.Saldo -= movimientoActual.Monto; //si el monto se cambia de ingreso a egreso, entonces se revierte el efecto ingreso
+            }
+            else if (movimientoActual.Tipo == TipoMovimiento.Egreso)
+            {
+                caja.Saldo += movimientoActual.Monto; //Se revierte el efecto de egreso si se cambia de egreso a ingreso
+            }
+
+            // Crea el nuevo movimiento con los datos del formulario
+            TipoMovimiento nuevoTipo = (TipoMovimiento)cboMovimientos.SelectedItem;
+            double nuevoMonto = Convert.ToDouble(txtMonto.Text);
+
+            //Validación de monto de egreso no sea mayor que el saldo disponible
             if (nuevoTipo == TipoMovimiento.Egreso && Convert.ToDouble(txtMonto.Text) > caja.Saldo)
             {
                 MessageBox.Show("El monto del egreso no puede ser mayor al saldo disponible.", "Saldo Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -123,6 +137,7 @@
             txtMonto.Text = null;
             txtConceptoDeMovimiento.Text = null;
             cboMovimientos.SelectedIndex = -1;
+            dgvMovimientos.CurrentCell = null;
         }
 
         //Metodo para que cuando se seleccione una fila del data (movimiento) se muestren los datos en los cuadros de texto
@@ -167,5 +182,13 @@
             return true;
         }
 
+        //Metodo para deseleccionar fila y limpiarcampos al dar click en el form
+        private void DeseleccionarDatayLimpiarCampos(object sender, EventArgs e)
+        {
+            txtMonto.Text = null;
+            txtConceptoDeMovimiento.Text = null;
+            cboMovimientos.SelectedIndex = -1;
+            dgvMovimientos.CurrentCell = null;
+        }
     }
 }
