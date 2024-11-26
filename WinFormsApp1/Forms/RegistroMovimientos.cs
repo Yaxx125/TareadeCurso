@@ -45,7 +45,7 @@ namespace WinFormsApp1
                 //Crear una fila con los moviminetos
                 dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
             }
-                
+
             //Se asegura que no se seleccione una fila en el Data al iniciar el form
             dgvMovimientos.CurrentCell = null;
 
@@ -80,7 +80,7 @@ namespace WinFormsApp1
             //Registrar y mostrar movimiento
             var movimiento = new Movimientos(tipo, monto, concepto, fecha);
             caja.RegistrarMovimientos(movimiento);
-            dgvMovimientos.Rows.Add(tipo,$"C$ {monto}", concepto, fecha);
+            dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha);
 
             //Actualizar saldo
             txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
@@ -142,7 +142,7 @@ namespace WinFormsApp1
             filaSeleccionada.Cells[3].Value = movimientoActual.Fecha;
 
             // Actualizar saldo en la interfaz
-            txtSaldo.Text = $"C$ { caja.Saldo.ToString("F2")}";
+            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
 
             MessageBox.Show($"Movimiento Modificado:\nTipo: {movimientoActual.Tipo} " + $"\nMonto: {movimientoActual.Monto}" + $"\nConcepto: {movimientoActual.Concepto}" + $"\nFecha: {movimientoActual.Fecha}", "Modificación con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //Limpiar campos
@@ -231,6 +231,42 @@ namespace WinFormsApp1
         private void Deseleccionarylimpiarcamposalhacerclick(object sender, EventArgs e)
         {
             DeseleccionarDatayLimpiarCampos();
+        }
+
+        //Evento para filtrar Movimientos por ingresos
+        private void MostrarIngresos(object sender, EventArgs e)
+        {
+            dgvMovimientos.Rows.Clear();
+            foreach (var movimiento in caja.ObtenerMovimientos())
+            {
+                if (movimiento.Tipo == TipoMovimiento.Ingreso)
+                {
+                    dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
+                }
+            }
+        }
+
+        //Evento para mostrar Egresos
+        private void MostrarEgresos(object sender, EventArgs e)
+        {
+            dgvMovimientos.Rows.Clear();
+            foreach (var movimiento in caja.ObtenerMovimientos())
+            {
+                if (movimiento.Tipo == TipoMovimiento.Egreso)
+                {
+                    dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
+                }
+            }
+        }
+
+        //Evento para quitar filtros
+        private void QuitarFiltros(object sender, EventArgs e)
+        {
+            dgvMovimientos.Rows.Clear();
+            foreach (var movimiento in caja.ObtenerMovimientos())
+            {
+                    dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
+            }
         }
     }
 }

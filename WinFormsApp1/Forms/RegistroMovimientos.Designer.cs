@@ -46,6 +46,7 @@
             dateTimePicker1 = new DateTimePicker();
             label6 = new Label();
             txtSaldo = new TextBox();
+            rbdNinguno = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).BeginInit();
             SuspendLayout();
             // 
@@ -147,6 +148,7 @@
             rdbIngresos.TabStop = true;
             rdbIngresos.Text = "Por ingresos";
             rdbIngresos.UseVisualStyleBackColor = true;
+            rdbIngresos.Click += MostrarIngresos;
             // 
             // rdbEgresos
             // 
@@ -159,6 +161,7 @@
             rdbEgresos.TabStop = true;
             rdbEgresos.Text = "Por egresos";
             rdbEgresos.UseVisualStyleBackColor = true;
+            rdbEgresos.Click += MostrarEgresos;
             // 
             // cboMovimientos
             // 
@@ -210,11 +213,25 @@
             txtSaldo.Size = new Size(100, 23);
             txtSaldo.TabIndex = 15;
             // 
+            // rbdNinguno
+            // 
+            rbdNinguno.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            rbdNinguno.AutoSize = true;
+            rbdNinguno.Location = new Point(395, 256);
+            rbdNinguno.Name = "rbdNinguno";
+            rbdNinguno.Size = new Size(77, 19);
+            rbdNinguno.TabIndex = 16;
+            rbdNinguno.TabStop = true;
+            rbdNinguno.Text = "(ninguna)";
+            rbdNinguno.UseVisualStyleBackColor = true;
+            rbdNinguno.Click += QuitarFiltros;
+            // 
             // RegistroMovimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(726, 603);
+            Controls.Add(rbdNinguno);
             Controls.Add(txtSaldo);
             Controls.Add(label6);
             Controls.Add(dateTimePicker1);
@@ -258,5 +275,6 @@
         private DateTimePicker dateTimePicker1;
         private Label label6;
         private TextBox txtSaldo;
+        private RadioButton rbdNinguno;
     }
 }
