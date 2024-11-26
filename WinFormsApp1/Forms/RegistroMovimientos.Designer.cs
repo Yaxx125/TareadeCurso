@@ -53,6 +53,8 @@
             // 
             dgvMovimientos.AllowUserToAddRows = false;
             dgvMovimientos.AllowUserToDeleteRows = false;
+            dgvMovimientos.AllowUserToResizeColumns = false;
+            dgvMovimientos.AllowUserToResizeRows = false;
             dgvMovimientos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvMovimientos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMovimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -60,6 +62,7 @@
             dgvMovimientos.Location = new Point(57, 26);
             dgvMovimientos.Name = "dgvMovimientos";
             dgvMovimientos.ReadOnly = true;
+            dgvMovimientos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMovimientos.Size = new Size(601, 186);
             dgvMovimientos.TabIndex = 0;
             dgvMovimientos.CellClick += SeleccionarMovimiento;
@@ -229,7 +232,7 @@
             Name = "RegistroMovimientos";
             Padding = new Padding(10);
             Text = "RegistroMovimientos";
-            Click += DeseleccionarDatayLimpiarCampos;
+            Click += Deseleccionarylimpiarcamposalhacerclick;
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).EndInit();
             ResumeLayout(false);
             PerformLayout();

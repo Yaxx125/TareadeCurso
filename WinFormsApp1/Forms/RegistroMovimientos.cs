@@ -43,11 +43,22 @@
                 //Crear una fila con los moviminetos
                 dgvMovimientos.Rows.Add(movimiento.Tipo, movimiento.Monto, movimiento.Concepto, movimiento.Fecha);
             }
+
+            //Se asegura que no se seleccione una fila en el Data al iniciar el form
+            dgvMovimientos.CurrentCell = null;
+
         }
 
         //Metodo para registrar el movimiento, esto para ligarlo con el MainForm
         public void AgregarMovimiento()
         {
+            //Se asegura que no haya un movimiento seleccionado, para evitar una duplicación
+            if (dgvMovimientos.CurrentRow != null)
+            {
+                MessageBox.Show("Acción Invalida", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             //llamada de metodo para validación de campos
             if (!ValidarCampos()) return;
 
@@ -73,9 +84,7 @@
             txtSaldo.Text = caja.Saldo.ToString("F2");
 
             //limpiar campos
-            txtMonto.Clear();
-            txtConceptoDeMovimiento.Clear();
-            cboMovimientos.SelectedIndex = -1;
+            DeseleccionarDatayLimpiarCampos();
         }
 
         //Metodo para registrar ´modificación de movimiento (será mandado a llamar en el mainform)
@@ -91,7 +100,7 @@
 
             if (!ValidarCampos()) return;
 
-            //Creación de nuevo movimiento por modificación
+            //Creación de movimiento modelo para obtener el movimiento seleccionado para modificación
             var movimientoActual = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
 
             //Revierte el efecto del movimiento original en caso de modificación
@@ -133,11 +142,9 @@
             // Actualizar saldo en la interfaz
             txtSaldo.Text = caja.Saldo.ToString("F2");
 
+            MessageBox.Show($"Movimiento Modificado:\nTipo: {movimientoActual.Tipo} " + $"\nMonto: {movimientoActual.Tipo}" + $"\nConcepto: {movimientoActual.Concepto}" + $"\nFecha: {movimientoActual.Fecha}", "Modificación con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //Limpiar campos
-            txtMonto.Text = null;
-            txtConceptoDeMovimiento.Text = null;
-            cboMovimientos.SelectedIndex = -1;
-            dgvMovimientos.CurrentCell = null;
+            DeseleccionarDatayLimpiarCampos();
         }
 
         //Metodo para que cuando se seleccione una fila del data (movimiento) se muestren los datos en los cuadros de texto
@@ -182,13 +189,19 @@
             return true;
         }
 
-        //Metodo para deseleccionar fila y limpiarcampos al dar click en el form
-        private void DeseleccionarDatayLimpiarCampos(object sender, EventArgs e)
+        //Metodo para deseleccionar fila y limpiarcampos 
+        private void DeseleccionarDatayLimpiarCampos()
         {
-            txtMonto.Text = null;
-            txtConceptoDeMovimiento.Text = null;
+            txtMonto.Clear();
+            txtConceptoDeMovimiento.Clear();
             cboMovimientos.SelectedIndex = -1;
             dgvMovimientos.CurrentCell = null;
+        }
+
+        //Limpiar campos y deseleccionar movimiento al dar click al Form
+        private void Deseleccionarylimpiarcamposalhacerclick(object sender, EventArgs e)
+        {
+            DeseleccionarDatayLimpiarCampos();
         }
     }
 }
