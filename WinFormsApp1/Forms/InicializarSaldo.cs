@@ -35,7 +35,7 @@
                 //Registrar el movimiento en la caja (osea, modificar el saldo)
                 caja.RegistrarMovimientos(inicializacióndeSaldo);
 
-                MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: C$ {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             else

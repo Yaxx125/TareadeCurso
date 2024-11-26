@@ -77,11 +77,11 @@ namespace WinFormsApp1
 
         private void AgregarMovimiento(object sender, EventArgs e)
         {
-                if (registroMovimientos != null && !registroMovimientos.IsDisposed)
-                {
-                    // Llama al método AgregarMovimiento en RegistroMovimientos
-                    registroMovimientos.AgregarMovimiento();
-                }
+            if (registroMovimientos != null && !registroMovimientos.IsDisposed)
+            {
+                // Llama al método AgregarMovimiento en RegistroMovimientos
+                registroMovimientos.AgregarMovimiento();
+            }
         }
 
         private void EditarMovimiento(object sender, EventArgs e)
@@ -91,6 +91,12 @@ namespace WinFormsApp1
                 //Llama al metodo EditarMovimineto en RegistroMovimientos
                 registroMovimientos.EditarMovimientos();
             }
+        }
+
+        private void GuardarMovimientos(object sender, EventArgs e)
+        {
+            //Llamada de metodo para Guardar los movimientos
+            registroMovimientos.GuardarMovimientos();
         }
     }
 }

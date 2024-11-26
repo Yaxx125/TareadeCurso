@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp1
+﻿using System.Text;
+
+namespace WinFormsApp1
 {
     public partial class RegistroMovimientos : Form
     {
@@ -31,7 +33,7 @@
         private void RegistroMovimientos_Shown(object sender, EventArgs e)
         {
             //Unicamente 2 decimales en el saldo
-            txtSaldo.Text = caja.Saldo.ToString("F2");
+            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
 
             //limpiar las filas del data
             dgvMovimientos.Rows.Clear();
@@ -41,9 +43,9 @@
             foreach (var movimiento in caja.ObtenerMovimientos())
             {
                 //Crear una fila con los moviminetos
-                dgvMovimientos.Rows.Add(movimiento.Tipo, movimiento.Monto, movimiento.Concepto, movimiento.Fecha);
+                dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
             }
-
+                
             //Se asegura que no se seleccione una fila en el Data al iniciar el form
             dgvMovimientos.CurrentCell = null;
 
@@ -78,10 +80,10 @@
             //Registrar y mostrar movimiento
             var movimiento = new Movimientos(tipo, monto, concepto, fecha);
             caja.RegistrarMovimientos(movimiento);
-            dgvMovimientos.Rows.Add(tipo, monto, concepto, fecha);
+            dgvMovimientos.Rows.Add(tipo,$"C$ {monto}", concepto, fecha);
 
             //Actualizar saldo
-            txtSaldo.Text = caja.Saldo.ToString("F2");
+            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
 
             //limpiar campos
             DeseleccionarDatayLimpiarCampos();
@@ -135,16 +137,43 @@
             // Actualizar la fila en el DataGridView
             var filaSeleccionada = dgvMovimientos.Rows[filaSeleccionadaIndex];
             filaSeleccionada.Cells[0].Value = movimientoActual.Tipo;
-            filaSeleccionada.Cells[1].Value = movimientoActual.Monto.ToString("F2");
+            filaSeleccionada.Cells[1].Value = $"C$ {movimientoActual.Monto.ToString("F2")}";
             filaSeleccionada.Cells[2].Value = movimientoActual.Concepto;
             filaSeleccionada.Cells[3].Value = movimientoActual.Fecha;
 
             // Actualizar saldo en la interfaz
-            txtSaldo.Text = caja.Saldo.ToString("F2");
+            txtSaldo.Text = $"C$ { caja.Saldo.ToString("F2")}";
 
-            MessageBox.Show($"Movimiento Modificado:\nTipo: {movimientoActual.Tipo} " + $"\nMonto: {movimientoActual.Tipo}" + $"\nConcepto: {movimientoActual.Concepto}" + $"\nFecha: {movimientoActual.Fecha}", "Modificación con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Movimiento Modificado:\nTipo: {movimientoActual.Tipo} " + $"\nMonto: {movimientoActual.Monto}" + $"\nConcepto: {movimientoActual.Concepto}" + $"\nFecha: {movimientoActual.Fecha}", "Modificación con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //Limpiar campos
             DeseleccionarDatayLimpiarCampos();
+        }
+
+        //Metodo para guardar movimiento en un txt
+        public void GuardarMovimientos()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Convertir a String la Lista de movmineots
+                var movimientos = caja.ObtenerMovimientos();
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("Movimientos registrados en caja: ");
+                stringBuilder.AppendLine("Tipo\t Monto\t Concepto \t Fecha");
+
+                foreach (var movimiento in movimientos)
+                {
+                    stringBuilder.AppendLine($"{movimiento.Tipo}\t C$ {movimiento.Monto}\t{movimiento.Concepto}\t{movimiento.Fecha}");
+                }
+
+                //Se consume linea de archivo para dar espacio al saldo final
+                stringBuilder.AppendLine();
+                stringBuilder.AppendLine($"Saldo final de caja: C${caja.Saldo}");
+
+                File.WriteAllText(saveFileDialog.FileName, stringBuilder.ToString());
+                MessageBox.Show("Movimientos guardados con exito", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //Metodo para que cuando se seleccione una fila del data (movimiento) se muestren los datos en los cuadros de texto

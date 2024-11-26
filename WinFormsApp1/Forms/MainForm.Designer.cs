@@ -174,6 +174,7 @@
             tsbGuardar.Size = new Size(142, 22);
             tsbGuardar.Text = "Guardar Movimientos";
             tsbGuardar.Visible = false;
+            tsbGuardar.Click += GuardarMovimientos;
             // 
             // tsbAgregar
             // 
