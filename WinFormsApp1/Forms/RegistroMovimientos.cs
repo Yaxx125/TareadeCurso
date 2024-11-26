@@ -184,7 +184,7 @@ namespace WinFormsApp1
             {
                 // Cargar datos de la fila seleccionada en los controles
                 cboMovimientos.SelectedItem = dgvMovimientos.CurrentRow.Cells[0].Value;
-                txtMonto.Text = dgvMovimientos.CurrentRow.Cells[1].Value.ToString();
+                txtMonto.Text = dgvMovimientos.CurrentRow.Cells[1].Value.ToString().Replace("C$", "").Trim();
                 txtConceptoDeMovimiento.Text = dgvMovimientos.CurrentRow.Cells[2].Value.ToString();
                 dateTimePicker1.Value = (DateTime)dgvMovimientos.CurrentRow.Cells[3].Value;
             }
