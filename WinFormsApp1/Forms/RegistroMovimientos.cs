@@ -307,5 +307,41 @@ namespace WinFormsApp1
                     dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
             }
         }
+
+        public void EliminarMovimiento()
+        {
+            // Verificar si hay una fila seleccionada
+            if (dgvMovimientos.CurrentRow == null || dgvMovimientos.CurrentRow.Index < 0)
+            {
+                MessageBox.Show("Seleccione un movimiento para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Confirmar la eliminación
+            DialogResult confirmacion = MessageBox.Show("¿Está seguro de que desea eliminar el movimiento seleccionado?",
+                                                        "Confirmación",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Question);
+            if (confirmacion == DialogResult.No) return;
+
+            // Obtener el índice de la fila seleccionada
+            int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
+
+            // Eliminar el movimiento correspondiente de la lista subyacente
+            var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
+            caja.EliminarMovimiento(movimientoAEliminar);
+
+            // Eliminar la fila del DataGridView
+            dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);
+
+            // Actualizar el saldo en la interfaz
+            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
+
+            MessageBox.Show("Movimiento eliminado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Limpiar los campos del formulario
+            DeseleccionarDatayLimpiarCampos();
+        }
+
     }
 }

@@ -98,5 +98,10 @@ namespace WinFormsApp1
             //Llamada de metodo para Guardar los movimientos
             registroMovimientos.GuardarMovimientos();
         }
+
+        private void EliminarMovimientos(object sender, EventArgs e)
+        {
+            registroMovimientos.EliminarMovimiento();
+        }
     }
 }
