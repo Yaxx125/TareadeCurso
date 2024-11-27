@@ -103,5 +103,15 @@ namespace WinFormsApp1
         {
             registroMovimientos.EliminarMovimiento();
         }
+
+        private void CargarMovimientos(object sender, EventArgs e)
+        {
+            if (registroMovimientos == null)
+            {
+                registroMovimientos = new RegistroMovimientos(caja);
+            }
+
+            registroMovimientos.CargarMovimientos();
+        }
     }
 }

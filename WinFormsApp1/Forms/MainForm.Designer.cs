@@ -165,6 +165,7 @@
             tsbImportar.Name = "tsbImportar";
             tsbImportar.Size = new Size(146, 22);
             tsbImportar.Text = "Importar Movimientos";
+            tsbImportar.Click += CargarMovimientos;
             // 
             // tsbGuardar
             // 
@@ -198,9 +199,10 @@
             // 
             // tsbEliminar
             // 
+            tsbEliminar.Image = (Image)resources.GetObject("tsbEliminar.Image");
             tsbEliminar.ImageTransparentColor = Color.Magenta;
             tsbEliminar.Name = "tsbEliminar";
-            tsbEliminar.Size = new Size(122, 22);
+            tsbEliminar.Size = new Size(138, 22);
             tsbEliminar.Text = "Eliminar Movimiento";
             tsbEliminar.Visible = false;
             tsbEliminar.Click += EliminarMovimientos;

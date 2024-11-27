@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Configuration;
+using System.Text;
 
 namespace WinFormsApp1
 {
@@ -136,18 +137,6 @@ namespace WinFormsApp1
             DeseleccionarDatayLimpiarCampos();
         }
 
-        //Metodo para revertir efecto de movimiento
-        private void RevertirEfectoMovimiento(Movimientos movimiento) 
-        {
-            if (movimiento.Tipo == TipoMovimiento.Ingreso)
-            {
-                caja.Saldo -= movimiento.Monto; //si el monto se cambia de ingreso a egreso, entonces se revierte el efecto ingreso
-            }
-            else if (movimiento.Tipo == TipoMovimiento.Egreso)
-            {
-                caja.Saldo += movimiento.Monto; //Se revierte el efecto de egreso si se cambia de egreso a ingreso
-            }
-        }
 
         //Metodo para Actualizar Movimiento por modifcación
         private void ActualizarMovimiento (Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, DateTime fecha)
@@ -264,6 +253,55 @@ namespace WinFormsApp1
                 MessageBox.Show("Movimientos guardados con éxito", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        public void CargarMovimientos()
+        {
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string[] configuracion = File.ReadAllLines(openFileDialog.FileName);
+                AplicarMovimientos(configuracion);
+                MessageBox.Show("Configuración cargada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void AplicarMovimientos(string[] configuración)
+        {
+            dgvMovimientos.Rows.Clear();
+
+            bool leyendoMovimientos = false;
+
+            foreach (var linea in configuración)
+            {
+                // Detectar el encabezado y empezar a leer movimientos
+                if (linea.StartsWith("Tipo\t"))
+                {
+                    leyendoMovimientos = true;
+                    continue;
+                }
+
+                // Procesar líneas de movimientos
+                if (leyendoMovimientos && !string.IsNullOrWhiteSpace(linea))
+                {
+                    var partes = linea.Split('\t'); // Separar por tabulaciones
+                    if (partes.Length == 4) // Validar que haya 4 columnas
+                    {
+                        dgvMovimientos.Rows.Add(partes[0].Trim(), partes[1].Trim(), partes[2].Trim(), partes[3].Trim());
+                    }
+                }
+
+                // Detectar la línea que contiene el saldo final
+                if (linea.StartsWith("Saldo final de caja:"))
+                {
+                    string saldo = linea.Split(':')[1].Trim().Replace("C$", ""); // Extraer el saldo
+                    txtSaldo.Text = saldo; // Mostrarlo en el TextBox
+                }
+            }
+        }
+
 
         //Metodo para que cuando se seleccione una fila del data (movimiento) se muestren los datos en los cuadros de texto
         private void SeleccionarMovimiento(object sender, DataGridViewCellEventArgs e)

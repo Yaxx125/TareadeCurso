@@ -33,6 +33,7 @@
         return movimientos;
     }
 
+    //Metodo para cuando se elimina o modifica un movimiento
     public void Revertirmovimiento(Movimientos movimiento)
         {
         if (movimientos.Contains(movimiento))
