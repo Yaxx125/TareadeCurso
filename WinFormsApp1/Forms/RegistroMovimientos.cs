@@ -111,8 +111,7 @@ namespace WinFormsApp1
             var movimientoActual = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
 
             //Revierte el efecto del movimiento original en caso de modificación
-            RevertirEfectoMovimiento(movimientoActual);
-
+            caja.Revertirmovimiento(movimientoActual);
             // Crea el nuevo movimiento con los datos del formulario
             TipoMovimiento nuevoTipo = (TipoMovimiento)cboMovimientos.SelectedItem;
             double nuevoMonto = Convert.ToDouble(txtMonto.Text);
@@ -187,7 +186,7 @@ namespace WinFormsApp1
 
             // Eliminar el movimiento correspondiente de la lista subyacente
             var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
-            caja.EliminarMovimiento(movimientoAEliminar);
+            caja.Revertirmovimiento(movimientoAEliminar);
 
             // Eliminar la fila del DataGridView
             dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);

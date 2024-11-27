@@ -33,7 +33,7 @@
         return movimientos;
     }
 
-    public void EliminarMovimiento(Movimientos movimiento)
+    public void Revertirmovimiento(Movimientos movimiento)
         {
         if (movimientos.Contains(movimiento))
         {
