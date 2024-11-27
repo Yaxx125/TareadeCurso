@@ -9,9 +9,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.caja = caja;
-
             this.Shown += RegistroMovimientos_Shown;
-
             ConfigurarCombobox();
         }
 
@@ -32,9 +30,20 @@ namespace WinFormsApp1
         //Metodo para mostrar los movimientos y saldo inicializados
         private void RegistroMovimientos_Shown(object sender, EventArgs e)
         {
-            //Unicamente 2 decimales en el saldo
-            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
+            ActualizarSaldo();
+            LlenarDataGriedView(caja.ObtenerMovimientos());
+        }
 
+        //Metodo que se usara cada vez que el saldo se mire afectado
+        private void ActualizarSaldo ()
+        {
+        //Unicamente 2 decimales en el saldo
+        txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
+        }
+
+        //Metodo para llenar DataGredView con la lista, asi como para asegurar que no esté nada seleccionado
+        private void LlenarDataGriedView(IEnumerable<Movimientos> movimientos)
+        {
             //limpiar las filas del data
             dgvMovimientos.Rows.Clear();
 
@@ -48,7 +57,6 @@ namespace WinFormsApp1
 
             //Se asegura que no se seleccione una fila en el Data al iniciar el form
             dgvMovimientos.CurrentCell = null;
-
         }
 
         //Metodo para registrar el movimiento, esto para ligarlo con el MainForm
@@ -82,9 +90,7 @@ namespace WinFormsApp1
             caja.RegistrarMovimientos(movimiento);
             dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha);
 
-            //Actualizar saldo
-            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
-
+            ActualizarSaldo();
             //limpiar campos
             DeseleccionarDatayLimpiarCampos();
         }
@@ -98,22 +104,14 @@ namespace WinFormsApp1
                 return;
             }
 
-            int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
-
             if (!ValidarCampos()) return;
 
+            int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
             //Creación de movimiento modelo para obtener el movimiento seleccionado para modificación
             var movimientoActual = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
 
             //Revierte el efecto del movimiento original en caso de modificación
-            if (movimientoActual.Tipo == TipoMovimiento.Ingreso)
-            {
-                caja.Saldo -= movimientoActual.Monto; //si el monto se cambia de ingreso a egreso, entonces se revierte el efecto ingreso
-            }
-            else if (movimientoActual.Tipo == TipoMovimiento.Egreso)
-            {
-                caja.Saldo += movimientoActual.Monto; //Se revierte el efecto de egreso si se cambia de egreso a ingreso
-            }
+            RevertirEfectoMovimiento(movimientoActual);
 
             // Crea el nuevo movimiento con los datos del formulario
             TipoMovimiento nuevoTipo = (TipoMovimiento)cboMovimientos.SelectedItem;
@@ -127,25 +125,78 @@ namespace WinFormsApp1
             }
 
             // Actualizar datos del movimiento seleccionado
-            movimientoActual.Tipo = nuevoTipo;
-            movimientoActual.Monto = Convert.ToDouble(txtMonto.Text);
-            movimientoActual.Concepto = txtConceptoDeMovimiento.Text;
-            movimientoActual.Fecha = dateTimePicker1.Value;
-
+            ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value);
             caja.RegistrarMovimientos(movimientoActual);
-
             // Actualizar la fila en el DataGridView
-            var filaSeleccionada = dgvMovimientos.Rows[filaSeleccionadaIndex];
-            filaSeleccionada.Cells[0].Value = movimientoActual.Tipo;
-            filaSeleccionada.Cells[1].Value = $"C$ {movimientoActual.Monto.ToString("F2")}";
-            filaSeleccionada.Cells[2].Value = movimientoActual.Concepto;
-            filaSeleccionada.Cells[3].Value = movimientoActual.Fecha;
+            ActualizarFila(filaSeleccionadaIndex, movimientoActual);
 
             // Actualizar saldo en la interfaz
-            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
-
+            ActualizarSaldo();
             MessageBox.Show($"Movimiento Modificado:\nTipo: {movimientoActual.Tipo} " + $"\nMonto: {movimientoActual.Monto}" + $"\nConcepto: {movimientoActual.Concepto}" + $"\nFecha: {movimientoActual.Fecha}", "Modificación con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //Limpiar campos
+            DeseleccionarDatayLimpiarCampos();
+        }
+
+        //Metodo para revertir efecto de movimiento
+        private void RevertirEfectoMovimiento(Movimientos movimiento) 
+        {
+            if (movimiento.Tipo == TipoMovimiento.Ingreso)
+            {
+                caja.Saldo -= movimiento.Monto; //si el monto se cambia de ingreso a egreso, entonces se revierte el efecto ingreso
+            }
+            else if (movimiento.Tipo == TipoMovimiento.Egreso)
+            {
+                caja.Saldo += movimiento.Monto; //Se revierte el efecto de egreso si se cambia de egreso a ingreso
+            }
+        }
+
+        //Metodo para Actualizar Movimiento por modifcación
+        private void ActualizarMovimiento (Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, DateTime fecha)
+        {
+            movimiento.Tipo = tipo;
+            movimiento.Monto = monto;
+            movimiento.Concepto = concepto;
+            movimiento.Fecha = fecha;
+        }
+
+        private void ActualizarFila (int filaindex, Movimientos movimiento)
+        {
+            var fila = dgvMovimientos.Rows[filaindex];
+            fila.Cells[0].Value = movimiento.Tipo;
+            fila.Cells[1].Value = $"C$ {movimiento.Monto:F2}";
+            fila.Cells[2].Value = movimiento.Concepto;
+            fila.Cells[3].Value = movimiento.Fecha;
+        }
+
+        //Metodo para eleiminar movimiento
+        public void EliminarMovimiento()
+        {
+            // Verificar si hay una fila seleccionada
+            if (dgvMovimientos.CurrentRow == null || dgvMovimientos.CurrentRow.Index < 0)
+            {
+                MessageBox.Show("Seleccione un movimiento para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Confirmar la eliminación
+            DialogResult confirmacion = MessageBox.Show("¿Está seguro de que desea eliminar el movimiento seleccionado?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmacion == DialogResult.No) return;
+
+            // Obtener el índice de la fila seleccionada
+            int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
+
+            // Eliminar el movimiento correspondiente de la lista subyacente
+            var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
+            caja.EliminarMovimiento(movimientoAEliminar);
+
+            // Eliminar la fila del DataGridView
+            dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);
+
+            // Actualizar el saldo en la interfaz
+            ActualizarSaldo();
+            MessageBox.Show("Movimiento eliminado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Limpiar los campos del formulario
             DeseleccionarDatayLimpiarCampos();
         }
 
@@ -304,43 +355,8 @@ namespace WinFormsApp1
             dgvMovimientos.Rows.Clear();
             foreach (var movimiento in caja.ObtenerMovimientos())
             {
-                    dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
+                dgvMovimientos.Rows.Add(movimiento.Tipo, $"C$ {movimiento.Monto}", movimiento.Concepto, movimiento.Fecha);
             }
-        }
-
-        public void EliminarMovimiento()
-        {
-            // Verificar si hay una fila seleccionada
-            if (dgvMovimientos.CurrentRow == null || dgvMovimientos.CurrentRow.Index < 0)
-            {
-                MessageBox.Show("Seleccione un movimiento para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Confirmar la eliminación
-            DialogResult confirmacion = MessageBox.Show("¿Está seguro de que desea eliminar el movimiento seleccionado?",
-                                                        "Confirmación",
-                                                        MessageBoxButtons.YesNo,
-                                                        MessageBoxIcon.Question);
-            if (confirmacion == DialogResult.No) return;
-
-            // Obtener el índice de la fila seleccionada
-            int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
-
-            // Eliminar el movimiento correspondiente de la lista subyacente
-            var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
-            caja.EliminarMovimiento(movimientoAEliminar);
-
-            // Eliminar la fila del DataGridView
-            dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);
-
-            // Actualizar el saldo en la interfaz
-            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
-
-            MessageBox.Show("Movimiento eliminado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Limpiar los campos del formulario
-            DeseleccionarDatayLimpiarCampos();
         }
 
     }
