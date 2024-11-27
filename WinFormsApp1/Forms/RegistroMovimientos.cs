@@ -266,6 +266,10 @@ namespace WinFormsApp1
                 AplicarMovimientos(configuracion);
                 MessageBox.Show("Configuración cargada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
         }
 
         private void AplicarMovimientos(string[] configuración)

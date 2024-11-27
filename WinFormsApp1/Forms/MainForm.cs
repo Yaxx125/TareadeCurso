@@ -59,19 +59,11 @@ namespace WinFormsApp1
                 registroMovimientos = new RegistroMovimientos(caja);
             }
 
-            //Verifica que se haya iningresado saldo anteriormente, de lo contario no muestra el form
-            if (caja.Saldo != 0)
-            {
-                MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
-                tsbAgregar.Visible = true;
-                tsbEditar.Visible = true;
-                tsbEliminar.Visible = true;
-                tsbGuardar.Visible = true;
-            }
-            else
-            {
-                MessageBox.Show("Necesita inicializar saldo de caja para acceder", "Inicialice Saldo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
+            MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
+            tsbAgregar.Visible = true;
+            tsbEditar.Visible = true;
+            tsbEliminar.Visible = true;
+            tsbGuardar.Visible = true;
 
         }
 
@@ -110,8 +102,9 @@ namespace WinFormsApp1
             {
                 registroMovimientos = new RegistroMovimientos(caja);
             }
-
+            MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
             registroMovimientos.CargarMovimientos();
+
         }
     }
 }
