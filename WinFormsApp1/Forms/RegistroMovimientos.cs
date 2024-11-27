@@ -272,6 +272,7 @@ namespace WinFormsApp1
             }
         }
 
+
         private void AplicarMovimientos(string[] configuración)
         {
             dgvMovimientos.Rows.Clear();
