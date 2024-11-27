@@ -154,9 +154,36 @@ namespace WinFormsApp1
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+
+            //Crea un Form y Una barra de Progreso
+            var Barradedescarga = new ProgressBar
+            {
+                Size = new Size(285, 27),
+                Style = ProgressBarStyle.Blocks,
+                Location = new Point(43, 29),
+                MarqueeAnimationSpeed = 10,
+                Minimum = 0,
+                Maximum = 100,
+                Step = 10
+            };
+
+            var FormBarraProgreso = new Form
+            {
+                Size = new Size(389, 128),
+                StartPosition = FormStartPosition.CenterScreen,
+                Text = "Guardando movimientos",
+                ControlBox = false,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+            };
+
+            FormBarraProgreso.Controls.Add(Barradedescarga);
+
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Convertir a String la Lista de movmineots
+                // Mostrar el formulario antes de iniciar el proceso de guardado
+                FormBarraProgreso.Show();
+
+                // Convertir a String la Lista de movimientos
                 var movimientos = caja.ObtenerMovimientos();
                 var stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("Movimientos registrados en caja: ");
@@ -167,12 +194,24 @@ namespace WinFormsApp1
                     stringBuilder.AppendLine($"{movimiento.Tipo}\t C$ {movimiento.Monto}\t{movimiento.Concepto}\t{movimiento.Fecha}");
                 }
 
-                //Se consume linea de archivo para dar espacio al saldo final
+                // Se consume línea de archivo para dar espacio al saldo final
                 stringBuilder.AppendLine();
                 stringBuilder.AppendLine($"Saldo final de caja: C${caja.Saldo}");
 
+                // Simular progreso mientras se guarda el archivo
+                for (int i = Barradedescarga.Minimum; i <= Barradedescarga.Maximum; i += Barradedescarga.Step)
+                {
+                    Barradedescarga.Value = i; // Incrementar directamente el valor
+                    System.Threading.Thread.Sleep(500); // Simula tiempo de procesamiento
+                }
+
                 File.WriteAllText(saveFileDialog.FileName, stringBuilder.ToString());
-                MessageBox.Show("Movimientos guardados con exito", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Cerrar el formulario de progreso
+                FormBarraProgreso.Close();
+
+                // Mostrar mensaje de confirmación
+                MessageBox.Show("Movimientos guardados con éxito", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
