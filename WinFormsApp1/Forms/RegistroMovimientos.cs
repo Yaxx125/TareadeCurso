@@ -256,18 +256,21 @@ namespace WinFormsApp1
 
         public void CargarMovimientos()
         {
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            // Muestra el diálogo una sola vez
+            DialogResult result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
             {
                 string[] configuracion = File.ReadAllLines(openFileDialog.FileName);
                 AplicarMovimientos(configuracion);
-                MessageBox.Show("Configuración cargada exitosamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Configuración cargada exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            else if (result == DialogResult.Cancel)
             {
+                // No hace nada si se cancela
                 return;
             }
         }

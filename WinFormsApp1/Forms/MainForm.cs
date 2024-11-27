@@ -102,9 +102,11 @@ namespace WinFormsApp1
             {
                 registroMovimientos = new RegistroMovimientos(caja);
             }
-            MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
-            registroMovimientos.CargarMovimientos();
 
+            MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
+
+            // Asegúrate de que el formulario esté cargado antes de llamar al método
+            registroMovimientos.CargarMovimientos();
         }
     }
 }
