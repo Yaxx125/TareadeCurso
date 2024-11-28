@@ -132,7 +132,7 @@ namespace WinFormsApp1
                         VerMovmientosGuardados(sender, e);
                         break;
 
-                    case Keys.D4 :
+                    case Keys.D4:
                         CerrarSesión(sender, e);
                         break;
 
@@ -140,48 +140,17 @@ namespace WinFormsApp1
                         break;
                 }
 
-                //Atajos Botones de tool strip    
-                //Funcionar solamente cuando se muestren en pantalla
-                if (toolStrip1.Visible == true)
-                {
-                    if (e.KeyCode == Keys.Enter)
-                    {
-                        AgregarMovimiento(sender, e);
-                    }
-
-
-                    if (e.Control)
-                    {
-                        switch (e.KeyCode)
-                        {
-                            case Keys.D2:
-                                EditarMovimiento(sender, e);
-                                break;
-
-                            case Keys.D3:
-                                EliminarMovimientos(sender, e);
-                                break;
-
-                            case Keys.D4:
-                                GuardarMovimientos(sender, e);
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-
-                }
-
                 if (e.Alt && e.KeyCode == Keys.F4)
                 {
                     // Cancelar el cierre la aplicación con alt f4
                     e.SuppressKeyPress = true;
-                    CerrarSesión(sender,e);
+                    CerrarSesión(sender, e);
                 }
 
             }
         }
 
+
+        
     }
 }
