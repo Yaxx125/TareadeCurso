@@ -9,11 +9,11 @@ public class Movimientos
     public TipoMovimiento Tipo { get; set; }
     public double Monto { get; set; }
     public string Concepto { get; set; }
-    public DateTime Fecha { get; set; }
+    public string Fecha { get; set; }
 
 
 
-    public Movimientos(TipoMovimiento tipo, double monto, string concepto, DateTime fecha)
+    public Movimientos(TipoMovimiento tipo, double monto, string concepto, string fecha)
     {
         Tipo = tipo;
         Monto = monto;

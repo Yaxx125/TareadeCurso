@@ -7,6 +7,7 @@ namespace WinFormsApp1
 
         InicializarSaldo? inicializarSaldo;
         RegistroMovimientos? registroMovimientos;
+        FormVerGuardados? verGuardados;
         //Objeto caja que será compartido entre los forms
         private Caja caja;
         public MainForm()
@@ -60,11 +61,7 @@ namespace WinFormsApp1
             }
 
             MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
-            tsbAgregar.Visible = true;
-            tsbEditar.Visible = true;
-            tsbEliminar.Visible = true;
-            tsbGuardar.Visible = true;
-
+            toolStrip1.Visible = true;
         }
 
         private void AgregarMovimiento(object sender, EventArgs e)
@@ -96,17 +93,16 @@ namespace WinFormsApp1
             registroMovimientos.EliminarMovimiento();
         }
 
-        private void CargarMovimientos(object sender, EventArgs e)
+        private void VerMovmientosGuardados(object sender, EventArgs e)
         {
-            if (registroMovimientos == null)
+            if (verGuardados == null)
             {
-                registroMovimientos = new RegistroMovimientos(caja);
+                verGuardados = new FormVerGuardados(caja);
             }
 
-            MostrarFormenTabPage(registroMovimientos, tabpRegistrar);
-
-            // Asegúrate de que el formulario esté cargado antes de llamar al método
-            registroMovimientos.CargarMovimientos();
+            verGuardados.CargarMovimientos();
+            toolStrip1.Visible = false;
+            MostrarFormenTabPage(verGuardados, tabpGuardados);
         }
     }
 }

@@ -36,10 +36,10 @@ namespace WinFormsApp1
         }
 
         //Metodo que se usara cada vez que el saldo se mire afectado
-        private void ActualizarSaldo ()
+        private void ActualizarSaldo()
         {
-        //Unicamente 2 decimales en el saldo
-        txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
+            //Unicamente 2 decimales en el saldo
+            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
         }
 
         //Metodo para llenar DataGredView con la lista, asi como para asegurar que no esté nada seleccionado
@@ -63,6 +63,13 @@ namespace WinFormsApp1
         //Metodo para registrar el movimiento, esto para ligarlo con el MainForm
         public void AgregarMovimiento()
         {
+
+            if (caja.Saldo == 0)
+            {
+                MessageBox.Show("Inicialice el saldo de caja para comenzar a registrar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+
             //Se asegura que no haya un movimiento seleccionado, para evitar una duplicación
             if (dgvMovimientos.CurrentRow != null)
             {
@@ -77,7 +84,7 @@ namespace WinFormsApp1
             TipoMovimiento tipo = (TipoMovimiento)cboMovimientos.SelectedItem;
             double monto = Convert.ToDouble(txtMonto.Text);
             string concepto = txtConceptoDeMovimiento.Text;
-            DateTime fecha = dateTimePicker1.Value;
+            string fecha = dateTimePicker1.Value.ToString();
 
             //Verificar que el monto a retirar no sea mayor al saldo disponible
             if (tipo == TipoMovimiento.Egreso && monto > caja.Saldo)
@@ -89,7 +96,7 @@ namespace WinFormsApp1
             //Registrar y mostrar movimiento
             var movimiento = new Movimientos(tipo, monto, concepto, fecha);
             caja.RegistrarMovimientos(movimiento);
-            dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha);
+            dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha.ToString());
 
             ActualizarSaldo();
             //limpiar campos
@@ -106,6 +113,9 @@ namespace WinFormsApp1
             }
 
             if (!ValidarCampos()) return;
+
+            DialogResult confirmacion = MessageBox.Show("¿Está seguro de que desea editar el movimiento seleccionado?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmacion == DialogResult.No) return;
 
             int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
             //Creación de movimiento modelo para obtener el movimiento seleccionado para modificación
@@ -125,7 +135,7 @@ namespace WinFormsApp1
             }
 
             // Actualizar datos del movimiento seleccionado
-            ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value);
+            ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value.ToString());
             caja.RegistrarMovimientos(movimientoActual);
             // Actualizar la fila en el DataGridView
             ActualizarFila(filaSeleccionadaIndex, movimientoActual);
@@ -139,7 +149,7 @@ namespace WinFormsApp1
 
 
         //Metodo para Actualizar Movimiento por modifcación
-        private void ActualizarMovimiento (Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, DateTime fecha)
+        private void ActualizarMovimiento(Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, string fecha)
         {
             movimiento.Tipo = tipo;
             movimiento.Monto = monto;
@@ -147,7 +157,7 @@ namespace WinFormsApp1
             movimiento.Fecha = fecha;
         }
 
-        private void ActualizarFila (int filaindex, Movimientos movimiento)
+        private void ActualizarFila(int filaindex, Movimientos movimiento)
         {
             var fila = dgvMovimientos.Rows[filaindex];
             fila.Cells[0].Value = movimiento.Tipo;
@@ -162,7 +172,7 @@ namespace WinFormsApp1
             // Verificar si hay una fila seleccionada
             if (dgvMovimientos.CurrentRow == null || dgvMovimientos.CurrentRow.Index < 0)
             {
-                MessageBox.Show("Seleccione un movimiento para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione un movimiento para eliminar.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -175,7 +185,7 @@ namespace WinFormsApp1
 
             // Eliminar el movimiento correspondiente de la lista subyacente
             var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
-            caja.Revertirmovimiento(movimientoAEliminar);
+            caja.Revertirmovimiento(movimientoAEliminar);           
 
             // Eliminar la fila del DataGridView
             dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);
@@ -191,6 +201,13 @@ namespace WinFormsApp1
         //Metodo para guardar movimiento en un txt
         public void GuardarMovimientos()
         {
+
+            if (dgvMovimientos.Rows.Count == 0)
+            {
+                MessageBox.Show("Registro Vacio, no hay movimientos por guardar", "Registro Vacio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
 
@@ -252,63 +269,9 @@ namespace WinFormsApp1
                 // Mostrar mensaje de confirmación
                 MessageBox.Show("Movimientos guardados con éxito", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
-        public void CargarMovimientos()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-
-            // Muestra el diálogo una sola vez
-            DialogResult result = openFileDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                string[] configuracion = File.ReadAllLines(openFileDialog.FileName);
-                AplicarMovimientos(configuracion);
-                MessageBox.Show("Configuración cargada exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                // No hace nada si se cancela
-                return;
-            }
-        }
-
-
-        private void AplicarMovimientos(string[] configuración)
-        {
-            dgvMovimientos.Rows.Clear();
-
-            bool leyendoMovimientos = false;
-
-            foreach (var linea in configuración)
-            {
-                // Detectar el encabezado y empezar a leer movimientos
-                if (linea.StartsWith("Tipo\t"))
-                {
-                    leyendoMovimientos = true;
-                    continue;
-                }
-
-                // Procesar líneas de movimientos
-                if (leyendoMovimientos && !string.IsNullOrWhiteSpace(linea))
-                {
-                    var partes = linea.Split('\t'); // Separar por tabulaciones
-                    if (partes.Length == 4) // Validar que haya 4 columnas
-                    {
-                        dgvMovimientos.Rows.Add(partes[0].Trim(), partes[1].Trim(), partes[2].Trim(), partes[3].Trim());
-                    }
-                }
-
-                // Detectar la línea que contiene el saldo final
-                if (linea.StartsWith("Saldo final de caja:"))
-                {
-                    string saldo = linea.Split(':')[1].Trim().Replace("C$", ""); // Extraer el saldo
-                    txtSaldo.Text = saldo; // Mostrarlo en el TextBox
-                }
-            }
-        }
 
 
         //Metodo para que cuando se seleccione una fila del data (movimiento) se muestren los datos en los cuadros de texto
@@ -321,7 +284,6 @@ namespace WinFormsApp1
                 cboMovimientos.SelectedItem = dgvMovimientos.CurrentRow.Cells[0].Value;
                 txtMonto.Text = dgvMovimientos.CurrentRow.Cells[1].Value.ToString().Replace("C$", "").Trim();
                 txtConceptoDeMovimiento.Text = dgvMovimientos.CurrentRow.Cells[2].Value.ToString();
-                dateTimePicker1.Value = (DateTime)dgvMovimientos.CurrentRow.Cells[3].Value;
             }
         }
 
@@ -404,5 +366,54 @@ namespace WinFormsApp1
             }
         }
 
+        private void AbrirContextMenu(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // Obtener la posición del ratón en la fila
+                var hitTest = dgvMovimientos.HitTest(e.X, e.Y);
+
+                if (hitTest.RowIndex >= 0)
+                {
+                    // Seleccionar la fila donde se hizo clic
+                    dgvMovimientos.ClearSelection();
+                    dgvMovimientos.Rows[hitTest.RowIndex].Selected = true;
+
+                    // Mostrar el ContextMenuStrip en la posición del cursor
+                    contextMenuStrip1.Show(dgvMovimientos, new Point(e.X, e.Y));
+
+                    // Llamar a la función para cargar los datos de la fila seleccionada
+                    SeleccionarMovimiento(sender, new DataGridViewCellEventArgs(hitTest.ColumnIndex, hitTest.RowIndex));
+                }
+            }
+        }
+
+        private void cms_Eliminar(object sender, EventArgs e)
+        {
+            EliminarMovimiento();
+        }
+
+        private void cms_Copiar(object sender, EventArgs e)
+        {
+            // Verificar si se ha seleccionado una fila en el DataGridView
+            if (dgvMovimientos.CurrentRow != null && dgvMovimientos.CurrentRow.Index >= 0)
+            {
+                // Obtener los valores de las celdas de la fila seleccionada
+                var fila = dgvMovimientos.CurrentRow;
+
+                // Crear un string con los valores de las celdas separados por tabuladores (para que sea más fácil pegar en Excel u otros editores de texto)
+                string textoACopiar = "";
+                foreach (DataGridViewCell celda in fila.Cells)
+                {
+                    textoACopiar += celda.Value.ToString() + "\t";  // Usar tabuladores entre los valores de las celdas
+                }
+
+                // Eliminar el último tabulador al final
+                textoACopiar = textoACopiar.TrimEnd('\t');
+
+                // Copiar el texto al portapapeles
+                Clipboard.SetText(textoACopiar);
+            }
+        }
     }
 }

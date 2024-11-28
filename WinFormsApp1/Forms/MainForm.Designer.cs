@@ -32,14 +32,15 @@
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             groupBox1 = new GroupBox();
+            btnVer = new Button();
             btnCerrarSesión = new Button();
             btnRegistrar = new Button();
             btnInicializar = new Button();
             tbcControl = new TabControl();
             tabpInicializar = new TabPage();
             tabpRegistrar = new TabPage();
+            tabpGuardados = new TabPage();
             toolStrip1 = new ToolStrip();
-            tsbImportar = new ToolStripButton();
             tsbGuardar = new ToolStripButton();
             tsbAgregar = new ToolStripButton();
             tsbEditar = new ToolStripButton();
@@ -58,7 +59,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(220, 580);
+            panel1.Size = new Size(220, 581);
             panel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -75,20 +76,33 @@
             // 
             groupBox1.Anchor = AnchorStyles.None;
             groupBox1.BackColor = Color.Gainsboro;
+            groupBox1.Controls.Add(btnVer);
             groupBox1.Controls.Add(btnCerrarSesión);
             groupBox1.Controls.Add(btnRegistrar);
             groupBox1.Controls.Add(btnInicializar);
             groupBox1.Location = new Point(3, 232);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(220, 277);
+            groupBox1.Size = new Size(220, 346);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Controles de manejo";
             // 
+            // btnVer
+            // 
+            btnVer.Anchor = AnchorStyles.Left;
+            btnVer.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnVer.Location = new Point(52, 201);
+            btnVer.Name = "btnVer";
+            btnVer.Size = new Size(101, 59);
+            btnVer.TabIndex = 3;
+            btnVer.Text = "Ver Movimientos Guardados";
+            btnVer.UseVisualStyleBackColor = true;
+            btnVer.Click += VerMovmientosGuardados;
+            // 
             // btnCerrarSesión
             // 
             btnCerrarSesión.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCerrarSesión.Location = new Point(52, 207);
+            btnCerrarSesión.Location = new Point(52, 276);
             btnCerrarSesión.Name = "btnCerrarSesión";
             btnCerrarSesión.Size = new Size(101, 51);
             btnCerrarSesión.TabIndex = 2;
@@ -99,9 +113,10 @@
             // btnRegistrar
             // 
             btnRegistrar.Anchor = AnchorStyles.Left;
-            btnRegistrar.Location = new Point(52, 130);
+            btnRegistrar.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRegistrar.Location = new Point(52, 124);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(101, 51);
+            btnRegistrar.Size = new Size(101, 59);
             btnRegistrar.TabIndex = 1;
             btnRegistrar.Text = "Registrar Movimientos";
             btnRegistrar.UseVisualStyleBackColor = true;
@@ -113,7 +128,7 @@
             btnInicializar.Name = "btnInicializar";
             btnInicializar.Size = new Size(101, 51);
             btnInicializar.TabIndex = 0;
-            btnInicializar.Text = "Inicializar Saldo";
+            btnInicializar.Text = "Iniciar saldo de Caja";
             btnInicializar.UseVisualStyleBackColor = true;
             btnInicializar.Click += Inicializar;
             // 
@@ -121,11 +136,12 @@
             // 
             tbcControl.Controls.Add(tabpInicializar);
             tbcControl.Controls.Add(tabpRegistrar);
+            tbcControl.Controls.Add(tabpGuardados);
             tbcControl.Dock = DockStyle.Fill;
             tbcControl.Location = new Point(220, 0);
             tbcControl.Name = "tbcControl";
             tbcControl.SelectedIndex = 0;
-            tbcControl.Size = new Size(740, 580);
+            tbcControl.Size = new Size(794, 581);
             tbcControl.TabIndex = 1;
             // 
             // tabpInicializar
@@ -133,9 +149,9 @@
             tabpInicializar.Location = new Point(4, 24);
             tabpInicializar.Name = "tabpInicializar";
             tabpInicializar.Padding = new Padding(3);
-            tabpInicializar.Size = new Size(732, 552);
+            tabpInicializar.Size = new Size(786, 553);
             tabpInicializar.TabIndex = 0;
-            tabpInicializar.Text = "Inicializar Saldo";
+            tabpInicializar.Text = "Iniciar saldo de Caja";
             tabpInicializar.UseVisualStyleBackColor = true;
             // 
             // tabpRegistrar
@@ -143,29 +159,31 @@
             tabpRegistrar.Location = new Point(4, 24);
             tabpRegistrar.Name = "tabpRegistrar";
             tabpRegistrar.Padding = new Padding(3);
-            tabpRegistrar.Size = new Size(732, 552);
+            tabpRegistrar.Size = new Size(786, 553);
             tabpRegistrar.TabIndex = 1;
-            tabpRegistrar.Text = "Registrar Movimientos";
+            tabpRegistrar.Text = "Registrar de Movimientos";
             tabpRegistrar.UseVisualStyleBackColor = true;
+            // 
+            // tabpGuardados
+            // 
+            tabpGuardados.Location = new Point(4, 24);
+            tabpGuardados.Name = "tabpGuardados";
+            tabpGuardados.Padding = new Padding(3);
+            tabpGuardados.Size = new Size(786, 553);
+            tabpGuardados.TabIndex = 2;
+            tabpGuardados.Text = "Ver movimientos guardados";
+            tabpGuardados.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
             // 
             toolStrip1.Dock = DockStyle.Bottom;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbImportar, tsbGuardar, tsbAgregar, tsbEditar, tsbEliminar });
-            toolStrip1.Location = new Point(220, 555);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsbGuardar, tsbAgregar, tsbEditar, tsbEliminar });
+            toolStrip1.Location = new Point(220, 556);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(740, 25);
+            toolStrip1.Size = new Size(794, 25);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
-            // 
-            // tsbImportar
-            // 
-            tsbImportar.Image = (Image)resources.GetObject("tsbImportar.Image");
-            tsbImportar.ImageTransparentColor = Color.Magenta;
-            tsbImportar.Name = "tsbImportar";
-            tsbImportar.Size = new Size(146, 22);
-            tsbImportar.Text = "Importar Movimientos";
-            tsbImportar.Click += CargarMovimientos;
+            toolStrip1.Visible = false;
             // 
             // tsbGuardar
             // 
@@ -174,7 +192,6 @@
             tsbGuardar.Name = "tsbGuardar";
             tsbGuardar.Size = new Size(142, 22);
             tsbGuardar.Text = "Guardar Movimientos";
-            tsbGuardar.Visible = false;
             tsbGuardar.Click += GuardarMovimientos;
             // 
             // tsbAgregar
@@ -184,7 +201,6 @@
             tsbAgregar.Name = "tsbAgregar";
             tsbAgregar.Size = new Size(137, 22);
             tsbAgregar.Text = "Agregar Movimiento";
-            tsbAgregar.Visible = false;
             tsbAgregar.Click += AgregarMovimiento;
             // 
             // tsbEditar
@@ -194,7 +210,6 @@
             tsbEditar.Name = "tsbEditar";
             tsbEditar.Size = new Size(125, 22);
             tsbEditar.Text = "Editar Movimiento";
-            tsbEditar.Visible = false;
             tsbEditar.Click += EditarMovimiento;
             // 
             // tsbEliminar
@@ -204,7 +219,6 @@
             tsbEliminar.Name = "tsbEliminar";
             tsbEliminar.Size = new Size(138, 22);
             tsbEliminar.Text = "Eliminar Movimiento";
-            tsbEliminar.Visible = false;
             tsbEliminar.Click += EliminarMovimientos;
             // 
             // MainForm
@@ -212,7 +226,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gainsboro;
-            ClientSize = new Size(960, 580);
+            ClientSize = new Size(1014, 581);
             Controls.Add(toolStrip1);
             Controls.Add(tbcControl);
             Controls.Add(panel1);
@@ -248,6 +262,7 @@
         private GroupBox groupBox1;
         private PictureBox pictureBox1;
         private ToolStripButton tsbGuardar;
-        private ToolStripButton tsbImportar;
+        private Button btnVer;
+        private TabPage tabpGuardados;
     }
 }

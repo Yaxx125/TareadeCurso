@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroMovimientos));
             dgvMovimientos = new DataGridView();
             TipodeMovimiento = new DataGridViewTextBoxColumn();
             Monto = new DataGridViewTextBoxColumn();
@@ -47,7 +49,11 @@
             label6 = new Label();
             txtSaldo = new TextBox();
             rbdNinguno = new RadioButton();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            eliminarMovimientoToolStripMenuItem = new ToolStripMenuItem();
+            copiarMovimientoToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvMovimientos
@@ -67,6 +73,7 @@
             dgvMovimientos.Size = new Size(601, 186);
             dgvMovimientos.TabIndex = 0;
             dgvMovimientos.CellClick += SeleccionarMovimiento;
+            dgvMovimientos.MouseDown += AbrirContextMenu;
             // 
             // TipodeMovimiento
             // 
@@ -226,6 +233,27 @@
             rbdNinguno.UseVisualStyleBackColor = true;
             rbdNinguno.Click += QuitarFiltros;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { eliminarMovimientoToolStripMenuItem, copiarMovimientoToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(186, 70);
+            // 
+            // eliminarMovimientoToolStripMenuItem
+            // 
+            eliminarMovimientoToolStripMenuItem.Image = (Image)resources.GetObject("eliminarMovimientoToolStripMenuItem.Image");
+            eliminarMovimientoToolStripMenuItem.Name = "eliminarMovimientoToolStripMenuItem";
+            eliminarMovimientoToolStripMenuItem.Size = new Size(185, 22);
+            eliminarMovimientoToolStripMenuItem.Text = "Eliminar Movimiento";
+            eliminarMovimientoToolStripMenuItem.Click += cms_Eliminar;
+            // 
+            // copiarMovimientoToolStripMenuItem
+            // 
+            copiarMovimientoToolStripMenuItem.Name = "copiarMovimientoToolStripMenuItem";
+            copiarMovimientoToolStripMenuItem.Size = new Size(185, 22);
+            copiarMovimientoToolStripMenuItem.Text = "Copiar Movimiento";
+            copiarMovimientoToolStripMenuItem.Click += cms_Copiar;
+            // 
             // RegistroMovimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -251,6 +279,7 @@
             Text = "RegistroMovimientos";
             Click += Deseleccionarylimpiarcamposalhacerclick;
             ((System.ComponentModel.ISupportInitialize)dgvMovimientos).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -276,5 +305,8 @@
         private Label label6;
         private TextBox txtSaldo;
         private RadioButton rbdNinguno;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem eliminarMovimientoToolStripMenuItem;
+        private ToolStripMenuItem copiarMovimientoToolStripMenuItem;
     }
 }
