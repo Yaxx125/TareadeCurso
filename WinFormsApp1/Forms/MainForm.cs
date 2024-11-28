@@ -14,6 +14,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             caja = new Caja(0);
+            this.KeyPreview = true;
         }
 
         private void CerrarSesión(object sender, EventArgs e)
@@ -25,6 +26,10 @@ namespace WinFormsApp1
                 FormIniciarCesión formIniciarCesión = new FormIniciarCesión();
                 formIniciarCesión.Show();
                 this.Close();
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -104,5 +109,79 @@ namespace WinFormsApp1
             toolStrip1.Visible = false;
             MostrarFormenTabPage(verGuardados, tabpGuardados);
         }
+
+        private void AtajosdeTeclado(object sender, KeyEventArgs e)
+        {
+            //Atajos para botones de Panel
+
+            // Verificar si la tecla Alt está presionada
+            if (e.Alt)
+            {
+                // Usar switch para manejar las teclas presionadas con Alt
+                switch (e.KeyCode)
+                {
+                    case Keys.D1:
+                        Inicializar(sender, e);
+                        break;
+
+                    case Keys.D2:
+                        Registrar(sender, e);
+                        break;
+
+                    case Keys.D3:
+                        VerMovmientosGuardados(sender, e);
+                        break;
+
+                    case Keys.D4 :
+                        CerrarSesión(sender, e);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                //Atajos Botones de tool strip    
+                //Funcionar solamente cuando se muestren en pantalla
+                if (toolStrip1.Visible == true)
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        AgregarMovimiento(sender, e);
+                    }
+
+
+                    if (e.Control)
+                    {
+                        switch (e.KeyCode)
+                        {
+                            case Keys.D2:
+                                EditarMovimiento(sender, e);
+                                break;
+
+                            case Keys.D3:
+                                EliminarMovimientos(sender, e);
+                                break;
+
+                            case Keys.D4:
+                                GuardarMovimientos(sender, e);
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                }
+
+                if (e.Alt && e.KeyCode == Keys.F4)
+                {
+                    // Cancelar el cierre la aplicación con alt f4
+                    e.SuppressKeyPress = true;
+                    CerrarSesión(sender,e);
+                }
+
+            }
+        }
+
     }
 }

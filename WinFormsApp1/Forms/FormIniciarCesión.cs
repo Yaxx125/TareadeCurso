@@ -16,6 +16,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.FormClosed += (s, e) => Application.Exit();
+            this.KeyPreview = true;
         }
 
         private void IniciarCesión(object sender, EventArgs e)
@@ -44,9 +45,13 @@ namespace WinFormsApp1
             }
         }
 
-        private void FormIniciarCesión_Load(object sender, EventArgs e)
-        {
 
+        private void Iniciarconenter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                IniciarCesión(sender,e);
+            }
         }
     }
 }
