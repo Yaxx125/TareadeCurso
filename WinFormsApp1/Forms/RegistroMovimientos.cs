@@ -38,6 +38,7 @@ namespace WinFormsApp1
         private void ActualizarSaldo()
         {
             // Recalcular el saldo sumando los ingresos y restando los egresos
+
             double saldoTotal = 0;
             foreach (var movimiento in caja.ObtenerMovimientos())
             {
@@ -51,7 +52,6 @@ namespace WinFormsApp1
                 }
             }
             caja.Saldo = saldoTotal;
-
             // Actualizar la interfaz con el saldo calculado
             txtSaldo.Text = $"Saldo: C$ {caja.Saldo:F2}";
         }
@@ -98,7 +98,7 @@ namespace WinFormsApp1
             TipoMovimiento tipo = (TipoMovimiento)cboMovimientos.SelectedItem;
             double monto = Convert.ToDouble(txtMonto.Text);
             string concepto = txtConceptoDeMovimiento.Text;
-            string fecha = dateTimePicker1.Value.ToString();
+            DateTime fecha = dateTimePicker1.Value;
 
             //Verificar que el monto a retirar no sea mayor al saldo disponible
             if (tipo == TipoMovimiento.Egreso && monto > caja.Saldo)
@@ -157,7 +157,7 @@ namespace WinFormsApp1
             }
 
             // Actualizar datos del movimiento seleccionado
-            ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value.ToString());
+            ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value);
             caja.RegistrarMovimiento(movimientoActual);
             // Actualizar la fila en el DataGridView
             ActualizarFila(filaSeleccionadaIndex, movimientoActual);
@@ -171,7 +171,7 @@ namespace WinFormsApp1
 
 
         //Metodo para Actualizar Movimiento por modifcación
-        private void ActualizarMovimiento(Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, string fecha)
+        private void ActualizarMovimiento(Movimientos movimiento, TipoMovimiento tipo, double monto, string concepto, DateTime fecha)
         {
             movimiento.Tipo = tipo;
             movimiento.Monto = monto;
@@ -306,6 +306,7 @@ namespace WinFormsApp1
                 cboMovimientos.SelectedItem = dgvMovimientos.CurrentRow.Cells[0].Value;
                 txtMonto.Text = dgvMovimientos.CurrentRow.Cells[1].Value.ToString().Replace("C$", "").Trim();
                 txtConceptoDeMovimiento.Text = dgvMovimientos.CurrentRow.Cells[2].Value.ToString();
+                dateTimePicker1.Value = (DateTime)dgvMovimientos.CurrentRow.Cells[3].Value;
             }
         }
 

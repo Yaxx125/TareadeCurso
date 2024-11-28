@@ -136,7 +136,7 @@
   <data name="eliminarMovimientoToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAFypJREFUeF7VXQl3VFW25g88k0ASQGY1IDTzoC1IOwDaz+7WZ9s4tdj6kEEGAbVV
+        wQAADsEBuJFr7QAAFypJREFUeF7VXQl3VFW25g88k0ASQGY1IDTzoC1IOwDaz+7WZ9s4tdj6kEEGAbVV
         VGhRsR1e+3jrtVOj9sNuRZyWttjLHhag2AoJIRAyQkKABBAChITKXKn99rfvreTWrV1V91bdSoqz1rdS
         qbr3DPu755x99tln316UsilgoO0EUcM3FDi1kQLH1xFVP0F0cB7R/p8Tlc4iKplGVHy5AXzGd/gN1+Ba
         vgf3Ig/JK5hviqbUIiTQQdRcQXTmE6Kap4nKbyAqmkgBBv56AuSJvFEGykKZKZR6npBAO1FTEdHJ9fxk
@@ -239,6 +239,6 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>45</value>
   </metadata>
 </root>

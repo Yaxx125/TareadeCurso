@@ -26,7 +26,7 @@
             if (Convert.ToDouble(txtSaldoInicial.Text) > 0)
             {
                 double saldoInicial = Convert.ToDouble(txtSaldoInicial.Text);
-                string fechadeejercicio = dtpFechadeEjercicio.Value.ToString();
+                DateTime fechadeejercicio = dtpFechadeEjercicio.Value;
 
                 //Registro de la inicialización de la caja
                 Movimientos inicializacióndeSaldo = new Ingreso(saldoInicial, "Inicialización de saldo", fechadeejercicio);

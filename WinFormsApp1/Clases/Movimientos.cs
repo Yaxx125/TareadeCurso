@@ -9,9 +9,9 @@ public abstract class Movimientos
     public TipoMovimiento Tipo { get; set; }
     public double Monto { get; set; }
     public string Concepto { get; set; }
-    public string Fecha { get; set; }
+    public DateTime Fecha { get; set; }
 
-    public Movimientos(double monto, string concepto, string fecha)
+    public Movimientos(double monto, string concepto, DateTime fecha)
     {
         Monto = monto;
         Concepto = concepto;
@@ -23,7 +23,7 @@ public abstract class Movimientos
 
 public class Ingreso : Movimientos
 {
-    public Ingreso(double monto, string concepto, string fecha)
+    public Ingreso(double monto, string concepto, DateTime fecha)
         : base(monto, concepto, fecha)
     {
         Tipo = TipoMovimiento.Ingreso;
@@ -37,7 +37,7 @@ public class Ingreso : Movimientos
 
 public class Egreso : Movimientos
 {
-    public Egreso(double monto, string concepto, string fecha)
+    public Egreso(double monto, string concepto, DateTime fecha)
         : base(monto, concepto, fecha)
     {
         Tipo = TipoMovimiento.Egreso;

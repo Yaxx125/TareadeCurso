@@ -237,7 +237,7 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { eliminarMovimientoToolStripMenuItem, copiarMovimientoToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(186, 70);
+            contextMenuStrip1.Size = new Size(186, 48);
             // 
             // eliminarMovimientoToolStripMenuItem
             // 
