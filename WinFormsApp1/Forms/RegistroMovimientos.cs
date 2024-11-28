@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Text;
+﻿using System.Text;
 
 namespace WinFormsApp1
 {
@@ -38,8 +37,23 @@ namespace WinFormsApp1
         //Metodo que se usara cada vez que el saldo se mire afectado
         private void ActualizarSaldo()
         {
-            //Unicamente 2 decimales en el saldo
-            txtSaldo.Text = $"C$ {caja.Saldo.ToString("F2")}";
+            // Recalcular el saldo sumando los ingresos y restando los egresos
+            double saldoTotal = 0;
+            foreach (var movimiento in caja.ObtenerMovimientos())
+            {
+                if (movimiento.Tipo == TipoMovimiento.Ingreso)
+                {
+                    saldoTotal += movimiento.Monto;
+                }
+                else if (movimiento.Tipo == TipoMovimiento.Egreso)
+                {
+                    saldoTotal -= movimiento.Monto;
+                }
+            }
+            caja.Saldo = saldoTotal;
+
+            // Actualizar la interfaz con el saldo calculado
+            txtSaldo.Text = $"Saldo: C$ {caja.Saldo:F2}";
         }
 
         //Metodo para llenar DataGredView con la lista, asi como para asegurar que no esté nada seleccionado
@@ -94,9 +108,18 @@ namespace WinFormsApp1
             }
 
             //Registrar y mostrar movimiento
-            var movimiento = new Movimientos(tipo, monto, concepto, fecha);
-            caja.RegistrarMovimientos(movimiento);
-            dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha.ToString());
+            Movimientos movimiento;
+
+            if (tipo == TipoMovimiento.Ingreso)
+            {
+                movimiento = new Ingreso(monto, concepto, fecha);
+            }
+            else
+            {
+                movimiento = new Egreso (monto, concepto, fecha);
+            }
+            caja.RegistrarMovimiento(movimiento);
+            dgvMovimientos.Rows.Add(tipo, $"C$ {monto}", concepto, fecha);
 
             ActualizarSaldo();
             //limpiar campos
@@ -119,10 +142,9 @@ namespace WinFormsApp1
 
             int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
             //Creación de movimiento modelo para obtener el movimiento seleccionado para modificación
-            var movimientoActual = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
-
+            var movimientoActual = caja.ObtenerMovimientos().ToList()[filaSeleccionadaIndex];
             //Revierte el efecto del movimiento original en caso de modificación
-            caja.Revertirmovimiento(movimientoActual);
+            caja.RevertirMovimiento(movimientoActual);
             // Crea el nuevo movimiento con los datos del formulario
             TipoMovimiento nuevoTipo = (TipoMovimiento)cboMovimientos.SelectedItem;
             double nuevoMonto = Convert.ToDouble(txtMonto.Text);
@@ -136,7 +158,7 @@ namespace WinFormsApp1
 
             // Actualizar datos del movimiento seleccionado
             ActualizarMovimiento(movimientoActual, nuevoTipo, nuevoMonto, txtConceptoDeMovimiento.Text, dateTimePicker1.Value.ToString());
-            caja.RegistrarMovimientos(movimientoActual);
+            caja.RegistrarMovimiento(movimientoActual);
             // Actualizar la fila en el DataGridView
             ActualizarFila(filaSeleccionadaIndex, movimientoActual);
 
@@ -184,8 +206,8 @@ namespace WinFormsApp1
             int filaSeleccionadaIndex = dgvMovimientos.CurrentRow.Index;
 
             // Eliminar el movimiento correspondiente de la lista subyacente
-            var movimientoAEliminar = caja.ObtenerMovimientos()[filaSeleccionadaIndex];
-            caja.Revertirmovimiento(movimientoAEliminar);           
+            var movimientoAEliminar = caja.ObtenerMovimientos().ToList()[filaSeleccionadaIndex];
+            caja.RevertirMovimiento(movimientoAEliminar);           
 
             // Eliminar la fila del DataGridView
             dgvMovimientos.Rows.RemoveAt(filaSeleccionadaIndex);

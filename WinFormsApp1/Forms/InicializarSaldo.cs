@@ -29,11 +29,11 @@
                 string fechadeejercicio = dtpFechadeEjercicio.Value.ToString();
 
                 //Registro de la inicialización de la caja
-                Movimientos inicializacióndeSaldo = new Movimientos(TipoMovimiento.Ingreso, saldoInicial, "Inicialización de saldo", fechadeejercicio);
+                Movimientos inicializacióndeSaldo = new Ingreso(saldoInicial, "Inicialización de saldo", fechadeejercicio);
 
 
                 //Registrar el movimiento en la caja (osea, modificar el saldo)
-                caja.RegistrarMovimientos(inicializacióndeSaldo);
+                caja.RegistrarMovimiento(inicializacióndeSaldo);
 
                 MessageBox.Show($"Caja iniciada con exito:\nFecha: {fechadeejercicio} " + $"\nMonton: C$ {saldoInicial}", "Registro con exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

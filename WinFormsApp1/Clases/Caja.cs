@@ -1,44 +1,28 @@
 ﻿public class Caja
 {
-    public double Saldo { get; set; }
-    //Lista donde se regitraran los movimientos
     private List<Movimientos> movimientos;
+    public double Saldo { get; set; }
 
-    public Caja (double saldo)
+    public Caja(double saldo)
     {
-        Saldo = saldo;
-        movimientos = new List<Movimientos> ();
+        movimientos = new List<Movimientos>();
+        Saldo = 0.0;
     }
 
-    //Metodo para modificar saldo durante movimientos
-
-    public void RegistrarMovimientos (Movimientos movimiento)
+    public void RegistrarMovimiento(Movimientos movimiento)
     {
-        //Añadir movimiento a la lista
-        movimientos.Add (movimiento);
-
-        if (movimiento.Tipo == TipoMovimiento.Ingreso)
-        {
-            Saldo += movimiento.Monto;
-        }
-        else if (movimiento.Tipo == TipoMovimiento.Egreso)
-        {
-            Saldo -= movimiento.Monto;
-        }
+        movimientos.Add(movimiento);
+        Saldo = movimiento.ActualizarSaldo(Saldo);
     }
 
-    //Obtener la lista de movimientos
-    public List<Movimientos> ObtenerMovimientos()
+    public IEnumerable<Movimientos> ObtenerMovimientos()
     {
         return movimientos;
     }
 
-    //Metodo para cuando se elimina o modifica un movimiento
-    public void Revertirmovimiento(Movimientos movimiento)
-        {
-        if (movimientos.Contains(movimiento))
-        {
-        // Revertir el efecto del movimiento en el saldo
+    public void RevertirMovimiento(Movimientos movimiento)
+    {
+        // Lógica para revertir el movimiento, por ejemplo:
         if (movimiento.Tipo == TipoMovimiento.Ingreso)
         {
             Saldo -= movimiento.Monto;
@@ -48,8 +32,8 @@
             Saldo += movimiento.Monto;
         }
 
-        // Eliminar el movimiento de la lista
+        // Eliminar el movimiento de la lista de movimientos (si corresponde)
         movimientos.Remove(movimiento);
-        }
     }
+
 }
